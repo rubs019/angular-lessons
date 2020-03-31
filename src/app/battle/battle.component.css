@@ -1,0 +1,19 @@
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#battle-playground {
+  width: 700px;
+  height: 400px;
+  background: url("../../assets/background_battle.png");
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 20px;
+}
+
+#logs {
+  width: 700px;
+  height: 300px;
+  background-color: green;
+}
