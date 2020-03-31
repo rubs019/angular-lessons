@@ -10,10 +10,27 @@
   background-position: center;
   background-size: cover;
   margin-bottom: 20px;
+  position: relative;
 }
 
 #logs {
   width: 700px;
   height: 300px;
   background-color: green;
+}
+
+.pokemon {
+  width: 100px;
+}
+
+#pokemon1 {
+  left: 15%;
+  top: 55%;
+}
+#pokemon2 {
+  top: 20%;
+  right: 27%;
+}
+#pokemon1, #pokemon2 {
+  position: absolute;
 }
