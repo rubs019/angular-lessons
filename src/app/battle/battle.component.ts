@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Pokemon } from '../Models/pokemon/Pokemon';
-import { Bulbizard, Pikachu } from '../Models/Pokemons';
+import { Pokemon } from '../Models/Pokemon/Pokemon';
+import { Bulbizard, Pikachu } from '../Models/FakePokemons';
 import { Battle } from '../Models/Fight/Fight';
 import { MINIMUM_LIFE } from '../constants';
-import AttackService from '../Models/Attack/Attack.service';
+import AttackService, { AttackInformation } from '../Models/Attack/Attack.service';
 
 @Component({
   selector: 'app-battle',
@@ -17,6 +17,7 @@ export class BattleComponent implements OnInit {
   lastDefender: Pokemon;
   lastAttacker: Pokemon;
   nbRound = 0;
+  battleLogs: Array<AttackInformation> = []
 
   constructor() {
   }
@@ -48,14 +49,14 @@ export class BattleComponent implements OnInit {
         }
 
         if (this.nbRound === 0) {
-          AttackService.attack(slowestPokemon, slowestPokemon.attacks[0], fasterPokemon);
+          this.battleLogs.push(AttackService.attack(slowestPokemon, slowestPokemon.attacks[0], fasterPokemon));
           this.lastDefender = slowestPokemon;
           this.lastAttacker = fasterPokemon;
           this.nbRound++;
           return;
         }
 
-        AttackService.attack(this.lastDefender, this.lastDefender.attacks[0], this.lastAttacker);
+        this.battleLogs.push(AttackService.attack(this.lastDefender, this.lastDefender.attacks[0], this.lastAttacker));
         if (this.lastAttacker.health === 0) {
           console.log('the winner is', this.lastDefender.name);
           clearInterval(round);

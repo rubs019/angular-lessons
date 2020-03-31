@@ -15,8 +15,9 @@
 
 #logs {
   width: 700px;
-  height: 300px;
+  height: 100px;
   background-color: green;
+  overflow: scroll;
 }
 
 .pokemon {

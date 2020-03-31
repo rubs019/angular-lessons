@@ -30,8 +30,8 @@ export class Pokemon {
     this.specDefStat = pokemon?.specDefStat;
   }
 
-  public loseHealth(dammages: number): void {
-    this.health -= dammages;
+  public loseHealth(damage: number): void {
+    this.health -= damage;
     if (this.health < 0) {
       this.health = 0;
     }

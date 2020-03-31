@@ -3,5 +3,12 @@
     <img class="pokemon" id="pokemon1" src="../../assets/Bulbizarre.png" alt="Bulbizarre">
     <img class="pokemon" id="pokemon2" src="../../assets/Carapuce.png" alt="Carapuce">
   </div>
-  <div id="logs"></div>
+  <div id="logs">
+    <div *ngFor="let log of battleLogs" class="pokemon-selector">
+      <div>
+        <p>{{ log.attackText }}</p>
+        <p>{{ log.damageText }}</p>
+      </div>
+    </div>
+  </div>
 </div>
