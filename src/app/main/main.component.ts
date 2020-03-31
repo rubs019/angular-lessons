@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  pokemons = ['Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre']
+  pokemons = ['Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre'];
   constructor() { }
 
   ngOnInit(): void {

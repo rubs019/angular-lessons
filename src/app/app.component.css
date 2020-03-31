@@ -12,3 +12,10 @@
 #pokemon-logo {
   height: 100%;
 }
+
+img {
+  cursor: pointer;
+}
+img:focus  {
+  outline: none;
+}
