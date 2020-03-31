@@ -1,8 +1,28 @@
 <div id="content">
   <div id="battle-playground">
-    <img class="pokemon" id="pokemon1" src="../../assets/Bulbizarre.png" alt="Bulbizarre">
-    <img class="pokemon" id="pokemon2" src="../../assets/Carapuce.png" alt="Carapuce">
+    <div id="health-status">
+      <div class="empty-health" id="health-pokemon1">
+        <div class="health-pokemon" [style.width.%]="opponent.health / opponent.maxHealth * 100"></div>
+        {{ opponent.name }}
+      </div>
+      <div class="empty-health" id="health-pokemon2" >
+        <div class="health-pokemon" [style.width.%]="secondOpponent.health / secondOpponent.maxHealth * 100"></div>
+        {{ secondOpponent.name }}
+      </div>
+    </div>
+    <img class="pokemon" id="pokemon1" src="../../assets/pikachu_back.png" alt="Pikachu">
+    <img class="pokemon" id="pokemon2" src="../../assets/bulbizar_front.png" alt="Bulbizar">
   </div>
+  <ng-template [ngIf]="battleFinished">
+    <button class="button" (click)="restartFight()">
+      RESTART
+    </button>
+  </ng-template>
+  <ng-template [ngIf]="!battleFinished">
+    <button class="button" (click)="toggleFight()">
+      {{ battleInProgress ? 'STOP' : 'FIGHT' }}
+    </button>
+  </ng-template>
   <div id="logs">
     <div *ngFor="let log of battleLogs" class="pokemon-selector">
       <div>
