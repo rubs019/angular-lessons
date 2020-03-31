@@ -1,0 +1,8 @@
+#pokemon-selectors-container {
+  display: flex;
+}
+.pokemon-selector {
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+}

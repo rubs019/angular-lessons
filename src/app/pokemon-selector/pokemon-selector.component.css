@@ -1,0 +1,11 @@
+.pokemon-overview, .header {
+  height: 100%;
+}
+.pokemon-overview {
+  border: solid 1px red;
+}
+
+.pokemon-overview:hover {
+  cursor: pointer;
+  background-color: pink;
+}
