@@ -1,16 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { Pokemon } from '../Models/Pokemon/Pokemon';
+import { PokemonBeans } from '../Models/Pokemon/pokemonBeans';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+  public APIUrl = 'https://pokeapi.co/api/v2';
+  public NbrPokemon = 100;
 
-  BASE_URL = 'https://pokeapi.co/api/v2';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getPokemon(pokemonIdentifier: string | number): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/pokemon/${pokemonIdentifier}`);
+  handleError(error: HttpErrorResponse) {
+    let err = 'ERROR';
+    if (error.error instanceof ErrorEvent) {
+      err = `Error: ${error.error.message}`;
+    } else {
+      err = `Error: ${error.message}`;
+    }
+    return throwError(err);
+  }
+
+  public getPokemon(key: string | number): Observable<Pokemon> {
+
+    return this.http.get<PokemonBeans>(`${this.APIUrl}/pokemon/${key}`)
+      .pipe(
+        catchError(this.handleError),
+        map(pokemon => Pokemon.BeansToPokemon(pokemon))
+      );
   }
 }

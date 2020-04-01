@@ -18,7 +18,7 @@ export class PokemonMovesBeans {
 }
 
 export class PokemonStatsBeans {
-    stats: {
+    stat: {
         name: 'hp' | 'speed' | 'attack' | 'defense' | 'special-attack' | 'special-defense'
     };
     // tslint:disable-next-line:variable-name

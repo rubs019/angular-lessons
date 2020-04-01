@@ -33,7 +33,7 @@ describe('Attack', () => {
       attackerName: pikachu.name,
       damage: 15,
       defenderName: bulbizard.name
-    }
+    };
     expect(attackInformation).toStrictEqual(expectResult);
   });
 });

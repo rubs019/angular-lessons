@@ -33,12 +33,13 @@ export class Pokemon {
         .slice(0, 10)
         .map(m => ({
             name: m.move.name,
-            basePower: pokemonBeans.stats.find( s => s.stats.name === 'attack').base_stat
+            basePower: pokemonBeans.stats.find( s => s.stat.name === 'attack').base_stat
         }));
-    const speed = pokemonBeans.stats.find( s => s.stats.name === 'speed').base_stat;
-    const hp = pokemonBeans.stats.find( s => s.stats.name === 'hp').base_stat;
-    const offStat = pokemonBeans.stats.find( s => s.stats.name === 'attack').base_stat;
-    const defStat = pokemonBeans.stats.find( s => s.stats.name === 'defense').base_stat;
+
+    const speed = pokemonBeans.stats.find( s => s.stat.name === 'speed').base_stat;
+    const hp = pokemonBeans.stats.find( s => s.stat.name === 'hp').base_stat;
+    const offStat = pokemonBeans.stats.find( s => s.stat.name === 'attack').base_stat;
+    const defStat = pokemonBeans.stats.find( s => s.stat.name === 'defense').base_stat;
 
     return new Pokemon({
         id: pokemonBeans.id,

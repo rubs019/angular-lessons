@@ -26,8 +26,53 @@ describe('ApiService', () => {
       expect(pokemon.name).toBe('ditto');
     });
 
-    httpMock.expectOne(`${service.BASE_URL}/pokemon/ditto`).flush({
-      name: 'ditto'
+    httpMock.expectOne(`${service.APIUrl}/pokemon/ditto`).flush({
+      name: 'ditto',
+      moves: [
+        {
+          move : {
+            name: 'transform',
+          }
+        }
+      ],
+      stats: [
+        {
+          base_stat: 45,
+          stat: {
+            name: 'speed',
+          }
+        },
+        {
+          base_stat: 65,
+          stat: {
+            name: 'special-defense',
+          }
+        },
+        {
+          base_stat: 65,
+          stat: {
+            name: 'special-attack',
+          }
+        },
+        {
+          base_stat: 49,
+          stat: {
+            name: 'defense',
+          }
+        },
+        {
+          base_stat: 49,
+          stat: {
+            name: 'attack',
+          }
+        },
+        {
+          base_stat: 45,
+          stat: {
+            name: 'hp',
+          }
+        }
+      ],
     });
 
     httpMock.verify();
