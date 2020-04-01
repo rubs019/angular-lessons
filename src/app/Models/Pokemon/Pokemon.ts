@@ -15,7 +15,7 @@ export class Pokemon {
   specOffStat: number;
   specDefStat: number;
 
-  constructor(pokemon?: IPokemon) {
+  constructor(pokemon: IPokemon) {
     this.id = pokemon?.id;
     this.name = pokemon?.name;
     this.level = pokemon?.level;
