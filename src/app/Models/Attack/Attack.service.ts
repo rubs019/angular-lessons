@@ -5,6 +5,8 @@ export type AttackInformation = {
   attackText: string
   damageText: string
   damage: number
+  attackerName: string
+  defenderName: string
 };
 
 export default class AttackService {
@@ -18,7 +20,9 @@ export default class AttackService {
     return {
       damage,
       attackText: `${off.name} attaque ${target.name}`,
-      damageText: `${off.name} inflige ${damage} dégats ${target.name}`
+      damageText: `${off.name} inflige ${damage} dégats ${target.name}`,
+      attackerName: off.name,
+      defenderName: target.name,
     };
   }
 }

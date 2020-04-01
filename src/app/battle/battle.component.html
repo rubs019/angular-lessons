@@ -1,11 +1,11 @@
 <div id="content">
   <div id="battle-playground">
     <div id="health-status">
-      <div class="empty-health" id="health-pokemon1">
+      <div class="empty-health" id="status-pokemon1">
         <div class="health-pokemon" [style.width.%]="opponent.health / opponent.maxHealth * 100"></div>
         {{ opponent.name }}
       </div>
-      <div class="empty-health" id="health-pokemon2" >
+      <div class="empty-health" id="status-pokemon2" >
         <div class="health-pokemon" [style.width.%]="secondOpponent.health / secondOpponent.maxHealth * 100"></div>
         {{ secondOpponent.name }}
       </div>
@@ -24,11 +24,10 @@
     </button>
   </ng-template>
   <div id="logs">
-    <div *ngFor="let log of battleLogs" class="pokemon-selector">
-      <div>
-        <p>{{ log.attackText }}</p>
+    <div *ngFor="let log of battleLogs" class="logs-history">
+        <p>
+          <span appPkmnOpponentColor="blue">{{ log.attackerName }}</span> attaque {{ log.defenderName}}</p>
         <p>{{ log.damageText }}</p>
-      </div>
     </div>
   </div>
 </div>

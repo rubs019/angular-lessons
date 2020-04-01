@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'pokemon_solid';
+  src: url('assets/fonts/pokemon_solid.ttf') format('woff2');
+  font-style: normal;
+}
+
 body, html {
   margin: 0;
 }
 body {
   background: url("./assets/main_background.png");
+  font-family: "pokemon_solid";
 }

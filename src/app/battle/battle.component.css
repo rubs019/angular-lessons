@@ -18,12 +18,27 @@
   height: 100px;
   background-color: green;
   overflow: scroll;
+  padding: 10px;
+  font-family: "Courier New";
 }
 
+.logs-history {
+  color: white;
+  margin-top: 10px;
+}
+.logs-history p {
+  margin: 0;
+}
 .pokemon {
   width: 100px;
 }
 
+#status-pokemon1 {
+  color: blue;
+}
+#status-pokemon2 {
+  color: green;
+}
 #pokemon1 {
   left: 15%;
   top: 55%;
@@ -40,7 +55,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #7f7f7f;
+  background-color: #77777752;
   height: 40px;
   padding: 10px;
 }

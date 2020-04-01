@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { PokemonSelectorComponent } from './pokemon-selector/pokemon-selector.component';
 import { BattleComponent } from './battle/battle.component';
+import { HighlightPkmnNameDirective } from './highlightPkmnName.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     PokemonSelectorComponent,
-    BattleComponent
+    BattleComponent,
+    HighlightPkmnNameDirective
   ],
   imports: [
     BrowserModule,
