@@ -9,8 +9,8 @@ export default class AttackService {
   }
 
   static attack(off: Pokemon, attack: Attack, target: Pokemon): AttackInformation {
-    const damage = this.calculateAttackDammages(off, attack, target)
-    target.loseHealth(damage)
+    const damage = this.calculateAttackDammages(off, attack, target);
+    target.loseHealth(damage);
     return {
       damage,
       attackerName: off.name,
