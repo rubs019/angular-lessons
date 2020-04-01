@@ -27,7 +27,11 @@ export const Pikachu: unknown = {
       basePower: 60
     }
   ],
-  basePower: 112
+  basePower: 112,
+  sprites: {
+    back_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png',
+    front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'
+  }
 };
 
 export const Bulbizard: unknown = {
@@ -53,5 +57,9 @@ export const Bulbizard: unknown = {
       basePower: 25
     }
   ],
+  sprites: {
+    front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+    back_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png'
+  },
   basePower: 108
 };

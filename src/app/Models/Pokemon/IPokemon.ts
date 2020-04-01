@@ -1,4 +1,5 @@
 import { Attack } from '../Attack/Attack.definition';
+import { PokemonSpritesBeans } from './pokemonBeans';
 
 export interface IPokemon {
   id?: number;
@@ -13,4 +14,5 @@ export interface IPokemon {
   attacks?: Attack[];
   specOffStat?: number;
   specDefStat?: number;
+  sprites?: PokemonSpritesBeans;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, forkJoin } from 'rxjs';
 import { Pokemon } from '../Models/Pokemon/Pokemon';
 import { PokemonBeans } from '../Models/Pokemon/pokemonBeans';
 import { catchError, map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class ApiService {
   public APIUrl = 'https://pokeapi.co/api/v2';
-  public NbrPokemon = 100;
+  public NbrPokemon = 10;
 
   constructor(private http: HttpClient) {}
 
@@ -31,5 +31,14 @@ export class ApiService {
         catchError(this.handleError),
         map(pokemon => Pokemon.BeansToPokemon(pokemon))
       );
+  }
+
+  public getPokemons(): Observable<Pokemon[]> {
+    const requests: Observable<Pokemon>[] = [];
+
+    for ( let i = 1 ; i < this.NbrPokemon ; i++ ) {
+      requests.push(this.getPokemon(i));
+    }
+    return forkJoin(requests);
   }
 }

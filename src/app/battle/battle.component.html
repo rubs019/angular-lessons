@@ -3,11 +3,11 @@
     <div id="health-status">
       <div class="empty-health" id="status-pokemon1">
         <div class="health-pokemon" [style.width.%]="opponent.health / opponent.maxHealth * 100"></div>
-        {{ opponent.name }}
+        <span [ngStyle]="{'color': opponent.color}">{{ opponent.name }}</span>
       </div>
-      <div class="empty-health" id="status-pokemon2" >
+      <div class="empty-health" id="status-pokemon2">
         <div class="health-pokemon" [style.width.%]="secondOpponent.health / secondOpponent.maxHealth * 100"></div>
-        {{ secondOpponent.name }}
+        <span [ngStyle]="{'color': secondOpponent.color}">{{ secondOpponent.name }}</span>
       </div>
     </div>
     <ng-template [ngIf]="battleFinished && winnerName">
@@ -15,8 +15,11 @@
         <p>The winner is {{ winnerName || 'Pikachu' }} </p>
       </div>
     </ng-template>
-    <img class="pokemon" id="pokemon1" src="../../assets/pikachu_back.png" alt="Pikachu">
-    <img class="pokemon" id="pokemon2" src="../../assets/bulbizar_front.png" alt="Bulbizar">
+    <img class="pokemon" id="pokemon1"
+         [src]="opponent.health !== 0 ? opponent.sprites.back_default : '../../assets/poke.png'" alt="Pikachu">
+    <img class="pokemon" id="pokemon2"
+         [src]="secondOpponent.health !== 0 ? secondOpponent.sprites.front_default : '../../assets/poke.png'"
+         alt="Bulbizar">
   </div>
   <ng-template [ngIf]="battleFinished">
     <button class="button" (click)="restartFight()">
@@ -29,10 +32,16 @@
     </button>
   </ng-template>
   <div id="logs">
+    <p class="dateStartBattle">{{ startBattleDate | date:'long' }}</p>
     <div *ngFor="let log of battleLogs" class="logs-history">
-        <p>
-          <span appPkmnOpponentColor="blue">{{ log.attackerName }}</span> attaque {{ log.defenderName}}</p>
-        <p>{{ log.damageText }}</p>
+      <p>
+        <span [appPkmnOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{ log.attackerName }}</span>
+        attaque <span [appPkmnOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
+      </p>
+      <p>
+        <span [appPkmnOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{log.attackerName}}</span> inflige {{log.damage | number }}
+        dégats <span [appPkmnOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
+      </p>
     </div>
   </div>
 </div>

@@ -16,14 +16,14 @@
 #logs {
   width: 700px;
   height: 100px;
-  background-color: green;
+  background-color: white;
   overflow: scroll;
   padding: 10px;
   font-family: "Courier New";
 }
 
 .logs-history {
-  color: white;
+  color: black;
   margin-top: 10px;
 }
 .logs-history p {

@@ -4,7 +4,9 @@
 .pokemon-overview {
   border: solid 1px red;
 }
-
+.pokemon-overview p {
+  font-family: Arial;
+}
 .pokemon-overview:hover {
   cursor: pointer;
   background-color: pink;
