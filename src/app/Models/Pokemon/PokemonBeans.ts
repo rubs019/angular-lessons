@@ -1,23 +1,21 @@
-export class PokemonSpritesBeans {
-    sprites: {
-        back_default: string;
-        back_female: string;
-        back_shiny: string;
-        back_shiny_female: string;
-        front_default: string;
-        front_female: string;
-        front_shiny: string;
-        front_shiny_female: string;
-    };
-}
+export type PokemonSpritesBeans = {
+    back_default: string;
+    back_female: string;
+    back_shiny: string;
+    back_shiny_female: string;
+    front_default: string;
+    front_female: string;
+    front_shiny: string;
+    front_shiny_female: string;
+};
 
-export class PokemonMovesBeans {
+export type PokemonMovesBeans = {
     move: {
         name: string;
     };
 }
 
-export class PokemonStatsBeans {
+export type PokemonStatsBeans = {
     stat: {
         name: 'hp' | 'speed' | 'attack' | 'defense' | 'special-attack' | 'special-defense'
     };
@@ -26,7 +24,7 @@ export class PokemonStatsBeans {
     effort: number;
 }
 
-export class PokemonBeans {
+export type PokemonBeans = {
     id: number;
     name: string;
     // tslint:disable-next-line:variable-name

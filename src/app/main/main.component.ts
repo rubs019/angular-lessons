@@ -10,11 +10,11 @@ import { Pokemon } from '../Models/Pokemon/Pokemon';
 })
 export class MainComponent implements OnInit {
 
-  pokemons = ['Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre', 'Pikachu', 'Bulbizarre'];
+  pokemonToSelect: Pokemon[] = [] ;
   constructor(private apiService: ApiService) {
 
     apiService.getPokemons().subscribe((pokemons: Pokemon[]) => {
-      console.log('Pokemon', pokemons[1].name);
+      this.pokemonToSelect = pokemons;
     });
   }
 

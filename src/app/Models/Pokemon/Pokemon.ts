@@ -1,6 +1,7 @@
 import { Attack } from '../Attack/Attack.definition';
 import { IPokemon } from './IPokemon';
-import { PokemonBeans } from './pokemonBeans';
+import { PokemonBeans, PokemonSpritesBeans } from './pokemonBeans';
+
 
 export class Pokemon {
 
@@ -14,6 +15,7 @@ export class Pokemon {
   health: number;
   basePower: number;
   attacks: Attack[];
+  sprites: PokemonSpritesBeans;
 
   constructor(pokemon: IPokemon) {
     this.id = pokemon?.id;
@@ -26,6 +28,7 @@ export class Pokemon {
     this.basePower = pokemon?.basePower;
     this.health = this.maxHealth;
     this.attacks = pokemon?.attacks;
+    this.sprites = pokemon?.sprites;
   }
 
   public static BeansToPokemon(pokemonBeans: PokemonBeans): Pokemon {
@@ -50,6 +53,7 @@ export class Pokemon {
         defStat,
         maxHealth: hp,
         attacks,
+        sprites: pokemonBeans.sprites,
     });
 
 }
