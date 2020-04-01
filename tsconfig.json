@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
     "types": ["jest"],
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

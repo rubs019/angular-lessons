@@ -10,6 +10,11 @@
         {{ secondOpponent.name }}
       </div>
     </div>
+    <ng-template [ngIf]="battleFinished && winnerName">
+      <div id="banner-result">
+        <p>The winner is {{ winnerName || 'Pikachu' }} </p>
+      </div>
+    </ng-template>
     <img class="pokemon" id="pokemon1" src="../../assets/pikachu_back.png" alt="Pikachu">
     <img class="pokemon" id="pokemon2" src="../../assets/bulbizar_front.png" alt="Bulbizar">
   </div>

@@ -20,23 +20,29 @@ export class BattleComponent implements OnInit, OnDestroy {
   battleLogs: Array<AttackInformation> = [];
   battleInProgress = false;
   battleFinished = false;
-  roundInterval = 0
+  roundInterval = 0;
+  winnerName = '';
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.opponent = Pikachu;
-    this.secondOpponent = Bulbizard;
+    this.opponent = new Pokemon(Pikachu);
+    this.secondOpponent = new Pokemon(Bulbizard);
   }
 
   ngOnDestroy(): void {
     clearInterval(this.roundInterval);
   }
 
-  startFight(): Promise<Pokemon> {
+  async fight(): Promise<void> {
+    const winner = await this.startFight();
+    this.handleEndBattle(winner);
+  }
+
+  private startFight(): Promise<Pokemon> {
     return new Promise(resolve => {
-      const fasterPokemon = Battle.getFaster(this.opponent, this.secondOpponent);
+      const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
       const slowestPokemon = fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
 
       this.roundInterval = window.setInterval(() => {
@@ -48,7 +54,8 @@ export class BattleComponent implements OnInit, OnDestroy {
         if (this.opponent.health < MINIMUM_LIFE || this.secondOpponent.health < MINIMUM_LIFE) {
           clearInterval(this.roundInterval);
           this.battleFinished = true;
-          return resolve(this.opponent);
+          this.winnerName = this.lastDefender.name;
+          return resolve(this.lastDefender);
         }
 
         if (this.nbRound === 0) {
@@ -61,9 +68,9 @@ export class BattleComponent implements OnInit, OnDestroy {
 
         this.handleAttack(this.lastDefender, this.lastAttacker);
         if (this.lastAttacker.health === 0) {
-          console.log('the winner is', this.lastDefender.name);
           clearInterval(this.roundInterval);
           this.battleFinished = true;
+          this.winnerName = this.lastDefender.name;
           return resolve(this.lastDefender);
         }
         const tempAttacker = this.lastAttacker;
@@ -75,10 +82,22 @@ export class BattleComponent implements OnInit, OnDestroy {
     });
   }
 
-  toggleFight(): void {
+  async toggleFight(): Promise<void> {
     this.battleInProgress = !this.battleInProgress;
 
-    this.startFight().then((res) => {
+    const winner = await this.startFight();
+
+    this.handleEndBattle(winner);
+  }
+
+  restartFight(): void {
+    this.opponent = new Pokemon(Pikachu);
+    this.secondOpponent = new Pokemon(Bulbizard);
+
+    console.log('this.opponent', this.opponent);
+    console.log('this.secondOpponent', this.secondOpponent);
+
+    this.fight().then((res) => {
       console.log('res', res);
     })
       .catch((err) => {
@@ -86,14 +105,13 @@ export class BattleComponent implements OnInit, OnDestroy {
       });
   }
 
-  restartFight(): void {
-    this.opponent = Pikachu;
-    this.secondOpponent = Bulbizard;
-  }
-
   private handleAttack(opponent: Pokemon, secondOpponent: Pokemon): void {
     const attackInformation = AttackService.attack(opponent, opponent.attacks[0], secondOpponent);
     this.battleLogs.push(attackInformation);
+  }
+
+  private handleEndBattle(winner: Pokemon): void {
+    console.log('winner', winner);
   }
 
 }

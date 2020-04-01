@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { PokemonSelectorComponent } from './pokemon-selector/pokemon-selector.component';
 import { BattleComponent } from './battle/battle.component';
-import { HighlightPkmnNameDirective } from './highlightPkmnName.directive';
+import { PkmnOpponentColorDirective } from './pkmn-opponent-color.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { HighlightPkmnNameDirective } from './highlightPkmnName.directive';
     MainComponent,
     PokemonSelectorComponent,
     BattleComponent,
-    HighlightPkmnNameDirective
+    PkmnOpponentColorDirective
   ],
   imports: [
     BrowserModule,

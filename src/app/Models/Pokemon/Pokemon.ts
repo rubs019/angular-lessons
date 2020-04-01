@@ -1,4 +1,4 @@
-import { Attack } from '../Attack/Attack';
+import { Attack } from '../Attack/Attack.definition';
 import { IPokemon } from './IPokemon';
 
 export class Pokemon {

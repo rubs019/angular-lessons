@@ -12,7 +12,8 @@ describe('It should be Pikachu', () => {
         speed: 48,
     });
 
-    test('should pick pikachu', () => {
-        expect(Battle.getFaster(bulbizard, pikachu)).toBe(pikachu);
+    test('should pick the faster Pokemon', () => {
+      expect(Battle.getFasterPokemon(bulbizard, pikachu)).toBe(pikachu);
+      expect(Battle.getFasterPokemon(pikachu, bulbizard)).toBe(pikachu);
     });
 });

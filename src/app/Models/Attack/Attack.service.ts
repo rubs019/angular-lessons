@@ -1,13 +1,7 @@
 import { Pokemon } from '../Pokemon/Pokemon';
-import { Attack } from './Attack';
+import { Attack, AttackInformation } from './Attack.definition';
 
-export type AttackInformation = {
-  attackText: string
-  damageText: string
-  damage: number
-  attackerName: string
-  defenderName: string
-};
+
 
 export default class AttackService {
   static calculateAttackDammages(off: Pokemon, attack: Attack, target: Pokemon): number {
@@ -19,8 +13,6 @@ export default class AttackService {
     target.loseHealth(damage)
     return {
       damage,
-      attackText: `${off.name} attaque ${target.name}`,
-      damageText: `${off.name} inflige ${damage} dégats ${target.name}`,
       attackerName: off.name,
       defenderName: target.name,
     };

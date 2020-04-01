@@ -39,6 +39,17 @@
 #status-pokemon2 {
   color: green;
 }
+#banner-result {
+  background-color: #00000085;
+  color: white;
+  height: 40px;
+  position: relative;
+  top: 60px;
+  display: flex;
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+}
 #pokemon1 {
   left: 15%;
   top: 55%;

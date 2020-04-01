@@ -1,4 +1,4 @@
-import { Attack } from '../Attack/Attack';
+import { Attack } from '../Attack/Attack.definition';
 
 export interface IPokemon {
   id?: number;

@@ -3,7 +3,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 @Directive({
   selector: '[appPkmnOpponentColor]'
 })
-export class HighlightPkmnNameDirective implements OnInit {
+export class PkmnOpponentColorDirective implements OnInit {
   constructor(private el: ElementRef) {
   }
 

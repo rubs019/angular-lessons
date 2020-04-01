@@ -1,7 +1,6 @@
-import { Pokemon } from './Pokemon/Pokemon';
-import { Attack } from './Attack/Attack';
+import { Attack } from './Attack/Attack.definition';
 
-export const Pikachu = new Pokemon({
+export const Pikachu: unknown = {
   name: 'Pikachu',
   level: 70,
   speed: 90,
@@ -11,27 +10,27 @@ export const Pikachu = new Pokemon({
   specDefStat: 50,
   maxHealth: 30,
   attacks: [
-    new Attack({
+    {
       name: 'Charge',
       basePower: 20
-    }),
-    new Attack({
+    },
+    {
       name: 'Eclair',
       basePower: 40
-    }),
-    new Attack({
+    },
+    {
       name: 'Rugissement',
       basePower: 1
-    }),
-    new Attack({
+    },
+    {
       name: 'Tonnerre',
       basePower: 60
-    })
+    }
   ],
   basePower: 112
-});
+};
 
-export const Bulbizard = new Pokemon({
+export const Bulbizard: unknown = {
   name: 'Bulbizard',
   level: 1,
   speed: 48,
@@ -41,18 +40,18 @@ export const Bulbizard = new Pokemon({
   specDefStat: 48,
   maxHealth: 48,
   attacks: [
-    new Attack({
+    {
       name: 'Charge',
       basePower: 5
-    }),
-    new Attack({
+    },
+    {
       name: 'Déflagration',
       basePower: 40
-    }),
-    new Attack({
+    },
+    {
       name: 'Flammèche',
       basePower: 25
-    })
+    }
   ],
   basePower: 108
-});
+};

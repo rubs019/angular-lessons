@@ -1,5 +1,5 @@
 import { Pokemon } from './Pokemon';
-import { Attack } from '../Attack/Attack';
+import { Attack } from '../Attack/Attack.definition';
 
 describe('Pokemon logic model', () => {
   let pikachu: Pokemon;
@@ -7,10 +7,10 @@ describe('Pokemon logic model', () => {
   let MathRandom: () => number;
 
   beforeEach( () => {
-    charge = new Attack({
+    charge = {
       name: 'Charge',
       basePower: 5
-    });
+    };
     pikachu = new Pokemon({
       name: 'Pikachu',
       level: 70,
