@@ -1,5 +1,5 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 
 import { ApiService } from './api.service';
 import { Pokemon } from '../Models/Pokemon/Pokemon';
@@ -20,16 +20,16 @@ describe('ApiService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return a pokemon', async () => {
+  it('should return a pokemon', async(() => {
     service.getPokemon('ditto').subscribe((pokemon: Pokemon) => {
-      console.log('Pokemon', pokemon.name);
-      return pokemon.name;
+      console.log('Pokemon', pokemon.name); // Ditta
+      expect(pokemon.name).toBe('ditto');
     });
 
     httpMock.expectOne(`${service.BASE_URL}/pokemon/ditto`).flush({
-      name: 'Ditta'
+      name: 'ditto'
     });
 
     httpMock.verify();
-  });
+  }));
 });
