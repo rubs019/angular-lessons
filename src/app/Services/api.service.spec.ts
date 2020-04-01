@@ -3,31 +3,13 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { ApiService } from './api.service';
 import { Pokemon } from '../Models/Pokemon/Pokemon';
+import { PokemonBeans } from '../Models/Pokemon/pokemonBeans';
 
 describe('ApiService', () => {
   let service: ApiService;
   let httpMock: HttpTestingController;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
-    });
-    service = TestBed.inject(ApiService);
-    httpMock = TestBed.inject(HttpTestingController);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('should return a pokemon', async(() => {
-    service.getPokemon('ditto').subscribe((pokemon: Pokemon) => {
-      console.log('Pokemon', pokemon.name); // Ditta
-      expect(pokemon.name).toBe('ditto');
-    });
-
-    httpMock.expectOne(`${service.APIUrl}/pokemon/ditto`).flush({
-      name: 'ditto',
+  const pokemonBeans = {
+    name: 'ditto',
       moves: [
         {
           move : {
@@ -73,7 +55,27 @@ describe('ApiService', () => {
           }
         }
       ],
+  };
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
     });
+    service = TestBed.inject(ApiService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should return a pokemon', async(() => {
+    service.getPokemon('ditto').subscribe((pokemon: Pokemon) => {
+      console.log('Pokemon', pokemon.name); // Ditta
+      expect(pokemon.name).toBe('ditto');
+    });
+
+    httpMock.expectOne(`${service.APIUrl}/pokemon/ditto`).flush(pokemonBeans);
 
     httpMock.verify();
   }));
