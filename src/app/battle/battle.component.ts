@@ -23,6 +23,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   battleFinished = false;
   roundInterval = 0;
   winnerName = '';
+  startBattleDate: Date;
 
   constructor() {
   }
@@ -42,6 +43,9 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   private startFight(): Promise<Pokemon> {
+    this.startBattleDate = new Date();
+    console.log('this.startBattleDate', this.startBattleDate);
+
     return new Promise(resolve => {
       const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
       const slowestPokemon = fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
@@ -51,6 +55,9 @@ export class BattleComponent implements OnInit, OnDestroy {
           clearInterval(this.roundInterval);
           return;
         }
+
+        this.opponent.color = 'green';
+        this.secondOpponent.color = 'blue';
 
         if (this.opponent.health < MINIMUM_LIFE || this.secondOpponent.health < MINIMUM_LIFE) {
           clearInterval(this.roundInterval);
@@ -68,18 +75,20 @@ export class BattleComponent implements OnInit, OnDestroy {
         }
 
         this.handleAttack(this.lastDefender, this.lastAttacker);
+
         if (this.lastAttacker.health === 0) {
           clearInterval(this.roundInterval);
           this.battleFinished = true;
           this.winnerName = this.lastDefender.name;
           return resolve(this.lastDefender);
         }
+
         const tempAttacker = this.lastAttacker;
         this.lastAttacker = this.lastDefender;
         this.lastDefender = tempAttacker;
         this.nbRound++;
 
-      }, 1000);
+      }, 100);
     });
   }
 

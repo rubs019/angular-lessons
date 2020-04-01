@@ -16,6 +16,7 @@ export class Pokemon {
   basePower: number;
   attacks: Attack[];
   sprites: PokemonSpritesBeans;
+  color?: string;
 
   constructor(pokemon: IPokemon) {
     this.id = pokemon?.id;
