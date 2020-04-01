@@ -5,11 +5,14 @@ import { Battle } from '../Models/Fight/Fight';
 import { MINIMUM_LIFE } from '../constants';
 import AttackService from '../Models/Attack/Attack.service';
 import { AttackInformation } from '../Models/Attack/Attack.definition';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../Services/api.service';
 
 @Component({
   selector: 'app-battle',
   templateUrl: './battle.component.html',
-  styleUrls: ['./battle.component.css']
+  styleUrls: ['./battle.component.css'],
+  providers: [ApiService]
 })
 export class BattleComponent implements OnInit, OnDestroy {
 
@@ -25,12 +28,23 @@ export class BattleComponent implements OnInit, OnDestroy {
   winnerName = '';
   startBattleDate: Date;
 
-  constructor() {
+  constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
 
-  ngOnInit(): void {
-    this.opponent = new Pokemon(Pikachu);
-    this.secondOpponent = new Pokemon(Bulbizard);
+  async ngOnInit(): Promise<any> {
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params);
+        this.apiService.getPokemon(params.pok1)
+          .subscribe((pokemon: Pokemon) => {
+            this.opponent = pokemon;
+        });
+
+        this.apiService.getPokemon(params.pok2)
+          .subscribe((pokemon: Pokemon) => {
+            this.secondOpponent = pokemon;
+          });
+      });
   }
 
   ngOnDestroy(): void {

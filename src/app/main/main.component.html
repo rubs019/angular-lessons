@@ -10,10 +10,39 @@
 <div class="content" role="main">
   <div id="pokemon-selectors-container">
     <div *ngFor="let pokemon of pokemonToSelect" class="pokemon-selector">
-      <app-pokemon-selector [pokemon]='pokemon'></app-pokemon-selector>
+      <app-pokemon-selector [pokemon]='pokemon' (click)="choosePokemon(pokemon)"></app-pokemon-selector>
     </div>
   </div>
-  <button class="button" [routerLink]="['/battle']">Battle</button>
+
+  <div class="startBattle">
+    <ng-template [ngIf]="pokemonSelected.length === 2">
+      <a class="button" [routerLink]="['/battle']" [queryParams]="{pok1: this.pokemonSelected[0].name, pok2: this.pokemonSelected[1].name}">
+        <span class="pokemonFont title" >START BATTLE</span>
+        <img src="../../assets/pokeball_battle.png" width="100px" alt="">
+      </a>
+    </ng-template>
+  </div>
+
+  <div id="selectors">
+    <div class="cardSelected">
+      <ng-template [ngIf]="pokemonSelected[0]">
+        <app-pokemon-selector [pokemon]='pokemonSelected[0]' (click)="removeSelectedPokemon(0)"></app-pokemon-selector>
+      </ng-template>
+      <ng-template [ngIf]="!pokemonSelected[0]">
+        <p>Pas de Pokémon selectionné</p>
+      </ng-template>
+    </div>
+
+    <div class="cardSelected">
+      <ng-template [ngIf]="pokemonSelected[1]">
+        <app-pokemon-selector [pokemon]='pokemonSelected[1]' (click)="removeSelectedPokemon(1)"></app-pokemon-selector>
+      </ng-template>
+      <ng-template [ngIf]="!pokemonSelected[1]">
+        <p>Pas de Pokémon selectionné</p>
+      </ng-template>
+    </div>
+  </div>
+
 </div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

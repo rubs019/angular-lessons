@@ -10,5 +10,9 @@ body, html {
 }
 body {
   background: url("./assets/main_background.png");
+  font-family: "Arial";
+}
+
+.pokemonFont {
   font-family: "pokemon_solid";
 }

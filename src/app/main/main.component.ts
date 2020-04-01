@@ -6,11 +6,13 @@ import { Pokemon } from '../Models/Pokemon/Pokemon';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
-  providers: [ ApiService ]
+  providers: [ApiService]
 })
 export class MainComponent implements OnInit {
 
-  pokemonToSelect: Pokemon[] = [] ;
+  pokemonToSelect: Pokemon[] = [];
+  pokemonSelected: Pokemon[] = [];
+
   constructor(private apiService: ApiService) {
 
     apiService.getPokemons().subscribe((pokemons: Pokemon[]) => {
@@ -19,6 +21,23 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  choosePokemon(pokemon: Pokemon): void {
+    if (this.pokemonSelected.length === 2) {
+      return;
+    }
+    this.pokemonSelected.push(pokemon);
+  }
+
+  removeSelectedPokemon(index: number): void {
+    if (index === 0) {
+      this.pokemonSelected.shift()
+      return;
+    }
+
+    this.pokemonSelected.pop();
+
   }
 
 }

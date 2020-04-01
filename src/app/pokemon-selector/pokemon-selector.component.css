@@ -1,6 +1,12 @@
 .pokemon-overview, .header {
   height: 100%;
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .pokemon-overview {
   border: solid 1px red;
 }

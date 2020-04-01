@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class ApiService {
   public APIUrl = 'https://pokeapi.co/api/v2';
-  public NbrPokemon = 10;
+  public NbrPokemon = 61;
 
   constructor(private http: HttpClient) {}
 

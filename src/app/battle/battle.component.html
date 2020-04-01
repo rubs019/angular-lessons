@@ -2,11 +2,11 @@
   <div id="battle-playground">
     <div id="health-status">
       <div class="empty-health" id="status-pokemon1">
-        <div class="health-pokemon" [style.width.%]="opponent.health / opponent.maxHealth * 100"></div>
+        <div class="health-pokemon" [style.width.%]="opponent?.health / opponent?.maxHealth * 100"></div>
         <span [ngStyle]="{'color': opponent.color}">{{ opponent.name }}</span>
       </div>
       <div class="empty-health" id="status-pokemon2">
-        <div class="health-pokemon" [style.width.%]="secondOpponent.health / secondOpponent.maxHealth * 100"></div>
+        <div class="health-pokemon" [style.width.%]="secondOpponent?.health / secondOpponent?.maxHealth * 100"></div>
         <span [ngStyle]="{'color': secondOpponent.color}">{{ secondOpponent.name }}</span>
       </div>
     </div>
