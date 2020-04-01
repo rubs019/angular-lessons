@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 import { PokemonSelectorComponent } from './pokemon-selector/pokemon-selector.component';
 import { BattleComponent } from './battle/battle.component';
 import { PkmnOpponentColorDirective } from './pkmn-opponent-color.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PkmnOpponentColorDirective } from './pkmn-opponent-color.directive';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

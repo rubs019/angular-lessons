@@ -14,7 +14,6 @@ export class PkmnOpponentColorDirective implements OnInit {
   }
 
   private setColor() {
-    console.log('this.textColor', this.textColor);
     this.el.nativeElement.style.color = this.textColor;
   }
 }
