@@ -31,7 +31,7 @@ export class Pokemon {
   public static BeansToPokemon(pokemonBeans: PokemonBeans): Pokemon {
     const attacks = pokemonBeans.moves
         .slice(0, 10)
-        .map(m => new Attack({
+        .map(m => ({
             name: m.move.name,
             basePower: pokemonBeans.stats.find( s => s.stats.name === 'attack').base_stat
         }));

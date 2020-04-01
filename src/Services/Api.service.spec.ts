@@ -21,7 +21,7 @@ describe('ApiService', () => {
     expect(api).toBeTruthy();
     api.getPokemon('ditto').subscribe((pokemon: Pokemon) => {
       expect(pokemonName).toBe('ditto');
-      console.log('pokemon :' + {pokemon.name});
+      console.log('pokemon :' + pokemon.name);
     });
     httpMock.expectOne(`${api.APIUrl}/pokemon/ditto/`).flush({
       name: 'ditto'

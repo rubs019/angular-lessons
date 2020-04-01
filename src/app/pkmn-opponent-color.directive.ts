@@ -7,12 +7,11 @@ export class PkmnOpponentColorDirective implements OnInit {
   constructor(private el: ElementRef) {
   }
 
+  @Input('appPkmnOpponentColor') textColor: string;
+
   ngOnInit(): void {
     this.setColor();
   }
-
-
-  @Input('appPkmnOpponentColor') textColor: string;
 
   private setColor() {
     console.log('this.textColor', this.textColor);

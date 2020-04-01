@@ -1,6 +1,5 @@
 import { Observable, throwError } from 'rxjs';
 import { Pokemon } from 'src/app/Models/Pokemon/Pokemon';
-import { Attack } from 'src/app/Models/Attack/Attack';
 import { PokemonBeans } from 'src/app/Models/Pokemon/pokemonBeans';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,7 +15,7 @@ export default class PokeApiService {
   constructor(private http: HttpClient) {}
 
   handleError(error: HttpErrorResponse) {
-    let err = 'ERROR';
+    let err: string;
     if (error.error instanceof ErrorEvent) {
       err = `Error: ${error.error.message}`;
     } else {

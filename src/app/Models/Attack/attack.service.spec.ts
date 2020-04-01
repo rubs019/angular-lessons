@@ -1,6 +1,6 @@
-import AttackService, { AttackInformation } from './attack.service';
+import AttackService from './attack.service';
 import { Pokemon } from '../Pokemon/Pokemon';
-import { Attack } from './Attack.definition';
+import { Attack, AttackInformation } from './Attack.definition';
 import { Bulbizard, Pikachu } from '../FakePokemons';
 
 describe('Attack', () => {

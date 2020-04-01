@@ -3,7 +3,8 @@ import { Pokemon } from '../Models/Pokemon/Pokemon';
 import { Bulbizard, Pikachu } from '../Models/FakePokemons';
 import { Battle } from '../Models/Fight/Fight';
 import { MINIMUM_LIFE } from '../constants';
-import AttackService, { AttackInformation } from '../Models/Attack/Attack.service';
+import AttackService from '../Models/Attack/Attack.service';
+import { AttackInformation } from '../Models/Attack/Attack.definition';
 
 @Component({
   selector: 'app-battle',
