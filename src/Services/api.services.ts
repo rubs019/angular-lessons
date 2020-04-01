@@ -15,15 +15,14 @@ export default class PokeApiService {
 
   constructor(private http: HttpClient) {}
 
-  handleError(err: HttpErrorResponse) {
-    let errorMessage = 'ERROR';
-    if (err.error instanceof ErrorEvent) {
-      // Client-side errors
-      errorMessage = `Error: ${err.error.message}`;
+  handleError(error: HttpErrorResponse) {
+    let err = 'ERROR';
+    if (error.error instanceof ErrorEvent) {
+      err = `Error: ${error.error.message}`;
     } else {
-      errorMessage = `Error Code: ${err.status}\nMessage: ${err.message}`;
+      err = `Error: ${error.message}`;
     }
-    return throwError(errorMessage);
+    return throwError(err);
   }
 
   public getPokemon(key: string | number): Observable<Pokemon> {
