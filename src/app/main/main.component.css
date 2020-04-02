@@ -1,13 +1,14 @@
 #pokemon-selectors-container {
   display: flex;
-  height: 400px;
+  height: '100%';
   flex-flow: wrap;
-  padding: 20px;
+  margin-bottom: 30px;
 }
 .pokemon-selector {
-  width: 70px;
-  height: 70px;
+  width: 75px;
+  height: 75px;
   margin: 10px;
+  margin-bottom: 20px;
 }
 
 .title {
@@ -60,4 +61,5 @@
 	border-width: 1px;;
   color: black;
   border-radius: 5px;
+  margin-bottom: 50px;
 }

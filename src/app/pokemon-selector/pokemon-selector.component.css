@@ -4,11 +4,11 @@
 
 .header {
   display: flex;
-  justify-content: center;
+  text-align: center;
   flex-direction: column;
 }
 .pokemon-overview {
-  border: solid 1px red;
+  border: solid 2px yellow;
 }
 .pokemon-overview p {
   font-family: Arial;
