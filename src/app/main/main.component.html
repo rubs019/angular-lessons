@@ -13,11 +13,16 @@
       <app-pokemon-selector [pokemon]='pokemon' (click)="choosePokemon(pokemon)"></app-pokemon-selector>
     </div>
   </div>
-
+  <div class="startBattle">
+    <button class="md-button" (click)="createPokemon()">
+      Créer un Pokémon
+    </button>
+  </div>
   <div class="startBattle">
     <ng-template [ngIf]="pokemonSelected.length === 2">
-      <a class="button" [routerLink]="['/battle']" [queryParams]="{pok1: this.pokemonSelected[0].name, pok2: this.pokemonSelected[1].name}">
-        <span class="pokemonFont title" >START BATTLE</span>
+      <a class="button" [routerLink]="['/battle']"
+        [queryParams]="{pok1: this.pokemonSelected[0].name, pok2: this.pokemonSelected[1].name}">
+        <span class="pokemonFont title">START BATTLE</span>
         <img src="../../assets/pokeball_battle.png" width="100px" alt="">
       </a>
     </ng-template>
@@ -42,7 +47,6 @@
       </ng-template>
     </div>
   </div>
-
 </div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

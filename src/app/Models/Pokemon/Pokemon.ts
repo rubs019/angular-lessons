@@ -18,7 +18,7 @@ export class Pokemon {
   sprites: PokemonSpritesBeans;
   color?: string;
 
-  constructor(pokemon: IPokemon) {
+  constructor(pokemon?: IPokemon) {
     this.id = pokemon?.id;
     this.name = pokemon?.name;
     this.level = pokemon?.level;

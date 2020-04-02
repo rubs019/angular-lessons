@@ -1,0 +1,9 @@
+<div class="test">
+	<h1>Création d'un Pokémon</h1>
+	<form (submit)="createPokemon()" novalidate>
+		<label>Nom : </label>
+		<input [(ngModel)]="creationService.createPokemon.name" type="text" [ngModelOptions]="{standalone: true}" /><br>
+		<br/>
+		<button type="submit">Créer</button>
+	</form>
+</div>
