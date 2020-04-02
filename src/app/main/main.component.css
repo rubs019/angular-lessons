@@ -37,13 +37,8 @@
   color: black;
   border-radius: 5px;
   margin-bottom: 100px;
+  margin: 30px;
 }
-
-#selectors {
-  display: flex;
-  justify-content: space-around;
-}
-
 .startBattle {
   display: flex;
   justify-content: center;
@@ -61,5 +56,11 @@
 	border-width: 1px;;
   color: black;
   border-radius: 5px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
