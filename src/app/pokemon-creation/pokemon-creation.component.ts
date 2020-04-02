@@ -15,10 +15,6 @@ export class PokemonCreationComponent implements OnInit {
   }
 
   createPokemon(): void {
-    this.close();
-  }
-
-  close(): void {
     this.dialogRef.close();
   }
 }

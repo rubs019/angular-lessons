@@ -42,7 +42,7 @@ export class MainComponent implements OnInit {
     this.pokemonSelected.pop();
 
   }
-  createPokemon(): void {
+  openDialog(): void {
     const dialogRef = this.dialog.open(PokemonCreationComponent);
 
     dialogRef.afterClosed().subscribe(() => {
