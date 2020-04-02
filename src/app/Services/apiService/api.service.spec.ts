@@ -2,8 +2,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed, async } from '@angular/core/testing';
 
 import { ApiService } from './api.service';
-import { Pokemon } from '../Models/Pokemon/Pokemon';
-import { PokemonBeans } from '../Models/Pokemon/pokemonBeans';
+import { Pokemon } from '../../Models/Pokemon/Pokemon';
+import { PokemonBeans } from '../../Models/Pokemon/PokemonBeans';
 
 describe('ApiService', () => {
   let service: ApiService;

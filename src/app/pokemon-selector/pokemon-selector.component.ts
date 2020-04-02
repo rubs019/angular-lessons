@@ -12,7 +12,7 @@ export class PokemonSelectorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.pokemon.sprites.back_default);
+    console.log(this.pokemon.sprites?.back_default);
   }
 
 }

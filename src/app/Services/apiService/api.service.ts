@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, forkJoin } from 'rxjs';
-import { Pokemon } from '../Models/Pokemon/Pokemon';
-import { PokemonBeans } from '../Models/Pokemon/pokemonBeans';
+import { Pokemon } from '../../Models/Pokemon/Pokemon';
+import { PokemonBeans } from '../../Models/Pokemon/PokemonBeans';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({

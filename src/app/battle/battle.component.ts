@@ -6,7 +6,8 @@ import { MINIMUM_LIFE } from '../constants';
 import AttackService from '../Models/Attack/Attack.service';
 import { AttackInformation } from '../Models/Attack/Attack.definition';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../Services/api.service';
+import { ApiService } from '../Services/apiService/api.service';
+import { Observable, Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-battle',
@@ -27,38 +28,23 @@ export class BattleComponent implements OnInit, OnDestroy {
   roundInterval = 0;
   winnerName = '';
   startBattleDate: Date;
+  subscriber: Subscription;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
 
   async ngOnInit(): Promise<any> {
     this.route.queryParams
-      .subscribe(params => {
-        console.log(params);
-        this.apiService.getPokemon(params.pok1)
-          .subscribe((pokemon: Pokemon) => {
-            this.opponent = pokemon;
-        });
-
-        this.apiService.getPokemon(params.pok2)
-          .subscribe((pokemon: Pokemon) => {
-            this.secondOpponent = pokemon;
-          });
-      });
-  }
-
-  ngOnDestroy(): void {
-    clearInterval(this.roundInterval);
+      .subscribe(params => this.handleQueryParams(params));
   }
 
   async fight(): Promise<void> {
-    const winner = await this.startFight();
-    this.handleEndBattle(winner);
+    const winner = await this.startFightObserver();
+    // this.handleEndBattle(winner);
   }
 
   private startFight(): Promise<Pokemon> {
     this.startBattleDate = new Date();
-    console.log('this.startBattleDate', this.startBattleDate);
 
     return new Promise(resolve => {
       const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
@@ -106,12 +92,66 @@ export class BattleComponent implements OnInit, OnDestroy {
     });
   }
 
+  private startFightObserver() {
+    const source = new Observable(subscriber => {
+      const interval = setInterval(() => {
+        const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
+        const slowestPokemon = fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
+
+        if (!this.battleInProgress) {
+          clearInterval(interval);
+          return;
+        }
+
+        this.opponent.color = 'green';
+        this.secondOpponent.color = 'blue';
+
+        if (this.opponent.health < MINIMUM_LIFE || this.secondOpponent.health < MINIMUM_LIFE) {
+          clearInterval(interval);
+          this.battleFinished = true;
+          this.winnerName = this.lastDefender.name;
+          return subscriber.next(this.lastDefender);
+        }
+
+        if (this.nbRound === 0) {
+          this.handleAttack(fasterPokemon, slowestPokemon);
+          this.lastDefender = slowestPokemon;
+          this.lastAttacker = fasterPokemon;
+          this.nbRound++;
+          return;
+        }
+
+        this.handleAttack(this.lastDefender, this.lastAttacker);
+
+        if (this.lastAttacker.health === 0) {
+          clearInterval(interval);
+          this.battleFinished = true;
+          this.winnerName = this.lastDefender.name;
+          return subscriber.next(this.lastDefender);
+        }
+
+        const tempAttacker = this.lastAttacker;
+        this.lastAttacker = this.lastDefender;
+        this.lastDefender = tempAttacker;
+        this.nbRound++;
+      }, 1000);
+      return () => {
+        subscriber.complete();
+        clearInterval(interval);
+      };
+    });
+
+    this.subscriber = source.subscribe(
+      next => console.log('onNext:', next),
+      error => console.error('onError: %s', error),
+      () => console.log('onCompleted')
+    );
+  }
+
   async toggleFight(): Promise<void> {
     this.battleInProgress = !this.battleInProgress;
 
-    const winner = await this.startFight();
-
-    this.handleEndBattle(winner);
+    await this.fight();
   }
 
   restartFight(): void {
@@ -138,4 +178,20 @@ export class BattleComponent implements OnInit, OnDestroy {
     console.log('winner', winner);
   }
 
+  private handleQueryParams(params): void {
+    this.apiService.getPokemon(params.pok1)
+      .subscribe(pokemon => {
+        this.opponent = pokemon;
+      });
+
+    this.apiService.getPokemon(params.pok2)
+      .subscribe(pokemon => {
+        this.secondOpponent = pokemon;
+      });
+  }
+
+  ngOnDestroy() { this.subscriber.unsubscribe(); }
+  /*ngOnDestroy(): void {
+    clearInterval(this.roundInterval);
+  }*/
 }
