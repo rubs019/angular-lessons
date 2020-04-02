@@ -2,3 +2,18 @@
     text-align: center;
     font-size: 12px;
 }
+.md-button {
+    border: none;
+	background-color: yellow;
+	width: 20%;
+    height: 40px;
+    font-size: medium;
+    text-align: center;
+	border-width: 1px;;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.input {
+    align-items: center;
+}

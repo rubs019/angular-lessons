@@ -43,10 +43,7 @@ export class MainComponent implements OnInit {
 
   }
   createPokemon(): void {
-    const dialogRef = this.dialog.open(PokemonCreationComponent, {
-      width: '30%',
-      height: '80%'
-      });
+    const dialogRef = this.dialog.open(PokemonCreationComponent);
 
     dialogRef.afterClosed().subscribe(() => {
         const pokemonCreated = new Pokemon();
