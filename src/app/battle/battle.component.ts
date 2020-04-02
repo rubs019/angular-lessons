@@ -41,71 +41,22 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   async fight(): Promise<void> {
-    const winner = await this.startFightObserver();
-    // this.handleEndBattle(winner);
-  }
-
-  private startFight(): Promise<Pokemon> {
-    this.startBattleDate = new Date();
-
-    return new Promise(resolve => {
-      const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
-      const slowestPokemon = fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
-
-      this.roundInterval = window.setInterval(() => {
-        if (!this.battleInProgress) {
-          clearInterval(this.roundInterval);
-          return;
-        }
-
-        this.opponent.color = 'green';
-        this.secondOpponent.color = 'blue';
-
-        if (this.opponent.health < MINIMUM_LIFE || this.secondOpponent.health < MINIMUM_LIFE) {
-          clearInterval(this.roundInterval);
-          this.battleFinished = true;
-          this.winnerName = this.lastDefender.name;
-          return resolve(this.lastDefender);
-        }
-
-        if (this.nbRound === 0) {
-          this.handleAttack(fasterPokemon, slowestPokemon);
-          this.lastDefender = slowestPokemon;
-          this.lastAttacker = fasterPokemon;
-          this.nbRound++;
-          return;
-        }
-
-        this.handleAttack(this.lastDefender, this.lastAttacker);
-
-        if (this.lastAttacker.health === 0) {
-          clearInterval(this.roundInterval);
-          this.battleFinished = true;
-          this.winnerName = this.lastDefender.name;
-          return resolve(this.lastDefender);
-        }
-
-        const tempAttacker = this.lastAttacker;
-        this.lastAttacker = this.lastDefender;
-        this.lastDefender = tempAttacker;
-        this.nbRound++;
-
-      }, 100);
-    });
+    await this.startFightObserver();
   }
 
   private startFightObserver() {
 
-    this.battleService.start(this.opponent, this.secondOpponent)
+    const sub = this.battleService.start(this.opponent, this.secondOpponent)
       .pipe(mergeMap(nb => {
         return this.battleService.playRound(nb);
-      }))
-      .subscribe(
-      (next: {nbRound: number, log: AttackInformation, winner?: Pokemon}) => {
-        console.log('fire', next)
+      }));
+
+    this.subscriber = sub.subscribe(
+      (next: { nbRound: number, log: AttackInformation, winner?: Pokemon }) => {
+        console.log('fire', next);
         if (!next.winner) {
           console.log(next.nbRound);
-          this.battleLogs.push(next.log)
+          this.battleLogs.push(next.log);
           return;
         }
         this.battleFinished = true;
@@ -120,30 +71,6 @@ export class BattleComponent implements OnInit, OnDestroy {
     this.battleInProgress = !this.battleInProgress;
 
     await this.fight();
-  }
-
-  restartFight(): void {
-    this.opponent = new Pokemon(Pikachu);
-    this.secondOpponent = new Pokemon(Bulbizard);
-
-    console.log('this.opponent', this.opponent);
-    console.log('this.secondOpponent', this.secondOpponent);
-
-    this.fight().then((res) => {
-      console.log('res', res);
-    })
-      .catch((err) => {
-        console.log('err', err);
-      });
-  }
-
-  private handleAttack(opponent: Pokemon, secondOpponent: Pokemon): void {
-    const attackInformation = AttackService.attack(opponent, opponent.attacks[0], secondOpponent);
-    this.battleLogs.push(attackInformation);
-  }
-
-  private handleEndBattle(winner: Pokemon): void {
-    console.log('winner', winner);
   }
 
   private handleQueryParams(params): void {
@@ -161,10 +88,6 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriber.unsubscribe();
+    this.subscriber?.unsubscribe();
   }
-
-  /*ngOnDestroy(): void {
-    clearInterval(this.roundInterval);
-  }*/
 }
