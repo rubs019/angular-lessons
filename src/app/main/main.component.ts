@@ -48,16 +48,18 @@ export class MainComponent implements OnInit {
       height: '80%'
       });
 
-    dialogRef.afterClosed().subscribe(pok => {
-        const newPokemon = new Pokemon();
-        console.log(newPokemon);
-        newPokemon.name = this.creationService.createPokemon.name;
-        newPokemon.level = this.creationService.createPokemon.level;
-        newPokemon.speed = this.creationService.createPokemon.speed;
-        newPokemon.offStat = this.creationService.createPokemon.offStat;
-        newPokemon.defStat = this.creationService.createPokemon.defStat;
-        newPokemon.maxHealth = this.creationService.createPokemon.maxHealth;
-        newPokemon.attacks = [];
+    dialogRef.afterClosed().subscribe(() => {
+        const pokemonCreated = new Pokemon();
+        console.log(pokemonCreated);
+        pokemonCreated.name = this.creationService.createPokemon.name;
+        pokemonCreated.level = this.creationService.createPokemon.level;
+        pokemonCreated.speed = this.creationService.createPokemon.speed;
+        pokemonCreated.offStat = this.creationService.createPokemon.offStat;
+        pokemonCreated.defStat = this.creationService.createPokemon.defStat;
+        pokemonCreated.maxHealth = this.creationService.createPokemon.maxHealth;
+        pokemonCreated.attacks = [];
+
+        this.pokemonToSelect.push(pokemonCreated);
       });
     }
 
