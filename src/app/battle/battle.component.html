@@ -4,10 +4,12 @@
       <div class="empty-health" id="status-pokemon1">
         <div class="health-pokemon" [style.width.%]="opponent?.health / opponent?.maxHealth * 100"></div>
         <span [ngStyle]="{'color': opponent?.color}">{{ opponent?.name }}</span>
+        <span style="color:black"> ({{opponent?.health}} / {{opponent?.maxHealth}} hp)</span>
       </div>
       <div class="empty-health" id="status-pokemon2">
         <div class="health-pokemon" [style.width.%]="secondOpponent?.health / secondOpponent?.maxHealth * 100"></div>
         <span [ngStyle]="{'color': secondOpponent?.color}">{{ secondOpponent?.name }}</span>
+        <span style="color:black">({{secondOpponent?.health}} / {{secondOpponent?.maxHealth}} hp)</span>
       </div>
     </div>
     <ng-template [ngIf]="battleFinished && winnerName">
@@ -31,7 +33,7 @@
     <div *ngFor="let log of battleLogs" class="logs-history">
       <p>
         <span [appPkmnOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{ log.attackerName }}</span>
-        attaque <span [appPkmnOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
+        utilise {{ log.attackName }} sur <span [appPkmnOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
       </p>
       <p>
         <span [appPkmnOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{log.attackerName}}</span> inflige {{log.damage | number }}

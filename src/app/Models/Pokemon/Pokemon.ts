@@ -5,17 +5,17 @@ import { PokemonBeans, PokemonSpritesBeans } from './pokemonBeans';
 
 export class Pokemon {
 
-  id: number;
-  name: string;
-  level: number;
-  speed: number;
-  offStat: number;
-  defStat: number;
-  maxHealth: number;
-  health: number;
-  basePower: number;
-  attacks: Attack[];
-  sprites: PokemonSpritesBeans;
+  id?: number;
+  name?: string;
+  level?: number;
+  speed?: number;
+  offStat?: number;
+  defStat?: number;
+  maxHealth?: number;
+  health?: number;
+  basePower?: number;
+  attacks?: Attack[];
+  sprites?: PokemonSpritesBeans;
   color?: string;
 
   constructor(pokemon?: IPokemon) {
@@ -26,8 +26,8 @@ export class Pokemon {
     this.offStat = pokemon?.offStat;
     this.defStat = pokemon?.defStat;
     this.maxHealth = pokemon?.maxHealth;
-    this.basePower = pokemon?.basePower;
     this.health = this.maxHealth;
+    this.basePower = pokemon?.basePower;
     this.attacks = pokemon?.attacks;
     this.sprites = pokemon?.sprites;
   }

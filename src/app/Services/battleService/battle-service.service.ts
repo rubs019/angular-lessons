@@ -13,13 +13,10 @@ export class BattleService {
 
   opponent: Pokemon;
   secondOpponent: Pokemon;
-  lastDefender?: Pokemon;
-  lastAttacker?: Pokemon;
-  fasterPokemon?: Pokemon;
-  slowestPokemon?: Pokemon;
+  nextAttacker?: Pokemon;
+  nextDefender?: Pokemon;
   battleFinished = false;
   winnerName?: string;
-  battleLogs = [];
 
   constructor() {
   }
@@ -27,60 +24,61 @@ export class BattleService {
   start(opponent: Pokemon, secondOpponent: Pokemon): Observable<any> {
     this.opponent = opponent;
     this.secondOpponent = secondOpponent;
-    this.fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
-    this.slowestPokemon = this.fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
     console.log('Start round');
     console.log('opponent = ', this.opponent);
     console.log('secondOpponent = ', this.secondOpponent);
     return interval(1000);
   }
 
-  playRound(nbRound): Observable<{nbRound: number, log: AttackInformation, winner?: Pokemon}> {
+  playRound(nbRound): Observable<{ nbRound: number, log: AttackInformation, winner?: Pokemon }> {
 
     return new Observable(observer => {
 
-      if (this.battleFinished) return observer.unsubscribe;
+      let attackInformation: AttackInformation | undefined;
+
+      if (this.battleFinished) {
+        return observer.unsubscribe;
+      }
 
       if (nbRound === 0) {
-        const log = this.handleAttack(this.fasterPokemon, this.slowestPokemon);
-        this.lastDefender = this.slowestPokemon;
-        this.lastAttacker = this.fasterPokemon;
+        const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
+        const slowestPokemon = fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
+
+        attackInformation = this.makeAttack(fasterPokemon, slowestPokemon);
+
+        this.nextAttacker = slowestPokemon;
+        this.nextDefender = fasterPokemon;
         return observer.next({
           nbRound,
-          log
+          log: attackInformation
         });
       }
 
-      if (this.opponent.health < MINIMUM_LIFE || this.secondOpponent.health < MINIMUM_LIFE) {
-        this.battleFinished = true;
-        this.winnerName = this.lastDefender.name;
-        observer.unsubscribe();
-      }
+      attackInformation = this.makeAttack(this.nextAttacker, this.nextDefender);
 
-      const log = this.handleAttack(this.lastDefender, this.lastAttacker);
-
-      if (this.lastAttacker.health === 0) {
+      if (this.nextDefender.health === 0) {
         this.battleFinished = true;
-        this.winnerName = this.lastDefender.name;
+        this.winnerName = this.nextAttacker.name;
         observer.next({
           nbRound,
-          log,
-          winner: this.lastDefender
+          log: attackInformation,
+          winner: this.nextAttacker
         });
-        observer.unsubscribe();
+        return observer.unsubscribe();
       }
 
-      const tempAttacker = this.lastAttacker;
-      this.lastAttacker = this.lastDefender;
-      this.lastDefender = tempAttacker;
+      const tempAttacker = this.nextAttacker;
+      this.nextAttacker = this.nextDefender;
+      this.nextDefender = tempAttacker;
       return observer.next({
         nbRound,
-        log
+        log: attackInformation
       });
     });
   }
 
-  private handleAttack(opponent: Pokemon, secondOpponent: Pokemon): AttackInformation {
-    return AttackService.attack(opponent, opponent.attacks[0], secondOpponent);
+  private makeAttack(opponent: Pokemon, secondOpponent: Pokemon): AttackInformation {
+    console.log('test', opponent);
+    return AttackService.attack(opponent, secondOpponent);
   }
 }

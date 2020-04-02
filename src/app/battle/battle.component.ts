@@ -21,13 +21,9 @@ export class BattleComponent implements OnInit, OnDestroy {
 
   opponent?: Pokemon;
   secondOpponent?: Pokemon;
-  lastDefender: Pokemon;
-  lastAttacker: Pokemon;
-  nbRound = 0;
   battleLogs: Array<AttackInformation> = [];
   battleInProgress = false;
   battleFinished = false;
-  roundInterval = 0;
   winnerName = '';
   startBattleDate: Date;
   subscriber: Subscription;
@@ -40,31 +36,22 @@ export class BattleComponent implements OnInit, OnDestroy {
       .subscribe(params => this.handleQueryParams(params));
   }
 
-  async fight(): Promise<void> {
-    await this.startFightObserver();
-  }
-
-  private startFightObserver() {
-
+  fight(): void {
     const sub = this.battleService.start(this.opponent, this.secondOpponent)
-      .pipe(mergeMap(nb => {
-        return this.battleService.playRound(nb);
+      .pipe(mergeMap(nbRound => {
+        return this.battleService.playRound(nbRound);
       }));
 
     this.subscriber = sub.subscribe(
       (next: { nbRound: number, log: AttackInformation, winner?: Pokemon }) => {
         console.log('fire', next);
-        if (!next.winner) {
-          console.log(next.nbRound);
-          this.battleLogs.push(next.log);
-          return;
-        }
+        this.battleLogs.push(next.log);
+        if (!next.winner) return;
+
         this.battleFinished = true;
         this.winnerName = next.winner?.name;
-        this.battleLogs.push(next.log);
       }
     );
-
   }
 
   async toggleFight(): Promise<void> {

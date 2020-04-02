@@ -5,6 +5,7 @@ export type Attack = {
 
 export type AttackInformation = {
   damage: number
+  attackName: string
   attackerName: string
   defenderName: string
 };
