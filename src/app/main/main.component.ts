@@ -32,7 +32,7 @@ export class MainComponent implements OnInit {
 
   removeSelectedPokemon(index: number): void {
     if (index === 0) {
-      this.pokemonSelected.shift()
+      this.pokemonSelected.shift();
       return;
     }
 
