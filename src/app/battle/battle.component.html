@@ -21,14 +21,9 @@
          [src]="secondOpponent?.health !== 0 ? secondOpponent?.sprites?.front_default : '../../assets/poke.png'"
          alt="Bulbizar">
   </div>
-  <ng-template [ngIf]="battleFinished">
-    <button class="button" (click)="restartFight()">
-      RESTART
-    </button>
-  </ng-template>
   <ng-template [ngIf]="!battleFinished">
     <button class="button" (click)="toggleFight()">
-      {{ battleInProgress ? 'STOP' : 'FIGHT' }}
+      {{ battleInProgress ? 'PAUSE' : 'FIGHT' }}
     </button>
   </ng-template>
   <div id="logs">

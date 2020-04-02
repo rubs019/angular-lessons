@@ -7,13 +7,15 @@ import AttackService from '../Models/Attack/Attack.service';
 import { AttackInformation } from '../Models/Attack/Attack.definition';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../Services/apiService/api.service';
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import { interval, Observable, Subscriber, Subscription } from 'rxjs';
+import { BattleService } from '../Services/battleService/battle-service.service';
+import { mergeMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-battle',
   templateUrl: './battle.component.html',
   styleUrls: ['./battle.component.css'],
-  providers: [ApiService]
+  providers: [ApiService, BattleService]
 })
 export class BattleComponent implements OnInit, OnDestroy {
 
@@ -30,7 +32,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   startBattleDate: Date;
   subscriber: Subscription;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private battleService: BattleService) {
   }
 
   async ngOnInit(): Promise<any> {
@@ -93,59 +95,25 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   private startFightObserver() {
-    const source = new Observable(subscriber => {
-      const interval = setInterval(() => {
-        const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
-        const slowestPokemon = fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
 
-        if (!this.battleInProgress) {
-          clearInterval(interval);
+    this.battleService.start(this.opponent, this.secondOpponent)
+      .pipe(mergeMap(nb => {
+        return this.battleService.playRound(nb);
+      }))
+      .subscribe(
+      (next: {nbRound: number, log: AttackInformation, winner?: Pokemon}) => {
+        console.log('fire', next)
+        if (!next.winner) {
+          console.log(next.nbRound);
+          this.battleLogs.push(next.log)
           return;
         }
-
-        this.opponent.color = 'green';
-        this.secondOpponent.color = 'blue';
-
-        if (this.opponent.health < MINIMUM_LIFE || this.secondOpponent.health < MINIMUM_LIFE) {
-          clearInterval(interval);
-          this.battleFinished = true;
-          this.winnerName = this.lastDefender.name;
-          return subscriber.next(this.lastDefender);
-        }
-
-        if (this.nbRound === 0) {
-          this.handleAttack(fasterPokemon, slowestPokemon);
-          this.lastDefender = slowestPokemon;
-          this.lastAttacker = fasterPokemon;
-          this.nbRound++;
-          return;
-        }
-
-        this.handleAttack(this.lastDefender, this.lastAttacker);
-
-        if (this.lastAttacker.health === 0) {
-          clearInterval(interval);
-          this.battleFinished = true;
-          this.winnerName = this.lastDefender.name;
-          return subscriber.next(this.lastDefender);
-        }
-
-        const tempAttacker = this.lastAttacker;
-        this.lastAttacker = this.lastDefender;
-        this.lastDefender = tempAttacker;
-        this.nbRound++;
-      }, 1000);
-      return () => {
-        subscriber.complete();
-        clearInterval(interval);
-      };
-    });
-
-    this.subscriber = source.subscribe(
-      next => console.log('onNext:', next),
-      error => console.error('onError: %s', error),
-      () => console.log('onCompleted')
+        this.battleFinished = true;
+        this.winnerName = next.winner?.name;
+        this.battleLogs.push(next.log);
+      }
     );
+
   }
 
   async toggleFight(): Promise<void> {
@@ -182,15 +150,20 @@ export class BattleComponent implements OnInit, OnDestroy {
     this.apiService.getPokemon(params.pok1)
       .subscribe(pokemon => {
         this.opponent = pokemon;
+        this.opponent.color = 'blue';
       });
 
     this.apiService.getPokemon(params.pok2)
       .subscribe(pokemon => {
         this.secondOpponent = pokemon;
+        this.secondOpponent.color = 'red';
       });
   }
 
-  ngOnDestroy() { this.subscriber.unsubscribe(); }
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
+  }
+
   /*ngOnDestroy(): void {
     clearInterval(this.roundInterval);
   }*/
