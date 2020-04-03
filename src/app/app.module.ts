@@ -10,7 +10,7 @@ import { PkmnOpponentColorDirective } from './pkmn-opponent-color.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { PokemonCreationComponent } from './pokemon-creation/pokemon-creation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -30,8 +30,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}

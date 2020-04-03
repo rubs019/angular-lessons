@@ -25,7 +25,7 @@ describe('AttackService', () => {
   });
 
   it('Should return a correct AttackInformation', () => {
-    spy = spyOn(service, 'calculateAttackDamage').and.returnValue(10);
+    spyOn(service, 'calculateAttackDamage').and.returnValue(10);
     spyOn(service, 'randomIndex').and.returnValue(0);
     const damages = service.attack(pikachu, bulbizard);
     expect(service.calculateAttackDamage).toHaveBeenCalledTimes(1);
