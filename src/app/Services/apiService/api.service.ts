@@ -15,7 +15,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   handleError(error: HttpErrorResponse) {
-    let err = 'ERROR';
+    let err;
     if (error.error instanceof ErrorEvent) {
       err = `Error: ${error.error.message}`;
     } else {

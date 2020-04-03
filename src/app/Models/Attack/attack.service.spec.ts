@@ -23,17 +23,23 @@ describe('Attack', () => {
   });
 
   it('Bulbizard should have 19 health', () => {
-    AttackService.attack(pikachu, pikachu.attacks[0], bulbizard);
+    AttackService.attack(pikachu, bulbizard);
     expect(bulbizard.health).toBe(33);
   });
 
   it('Attack should return 29 damages ', () => {
-    const attackInformation = AttackService.attack(pikachu, pikachu.attacks[0], bulbizard);
+    const attackInformation = AttackService.attack(pikachu, bulbizard);
     const expectResult: AttackInformation = {
       attackerName: pikachu.name,
+      attackName: 'coucou',
       damage: 15,
       defenderName: bulbizard.name
     };
-    expect(attackInformation).toStrictEqual(expectResult);
+    expect(attackInformation).toContain({
+      attackerName: pikachu.name,
+      attackName: expect.any(String),
+      damage: 15,
+      defenderName: bulbizard.name
+    });
   });
 });

@@ -3,8 +3,9 @@ import { Battle } from '../../Models/Fight/Fight';
 import { Pokemon } from '../../Models/Pokemon/Pokemon';
 import AttackService from '../../Models/Attack/Attack.service';
 import { Observable, interval } from 'rxjs';
-import { MINIMUM_LIFE } from '../../constants';
 import { AttackInformation } from '../../Models/Attack/Attack.definition';
+
+export type RoundInformation = { nbRound: number, log: AttackInformation, winner?: Pokemon }
 
 @Injectable({
   providedIn: 'root'
@@ -21,24 +22,19 @@ export class BattleService {
   constructor() {
   }
 
-  start(opponent: Pokemon, secondOpponent: Pokemon): Observable<any> {
+  start(opponent: Pokemon, secondOpponent: Pokemon): Observable<number> {
     this.opponent = opponent;
     this.secondOpponent = secondOpponent;
-    console.log('Start round');
-    console.log('opponent = ', this.opponent);
-    console.log('secondOpponent = ', this.secondOpponent);
     return interval(1000);
   }
 
-  playRound(nbRound): Observable<{ nbRound: number, log: AttackInformation, winner?: Pokemon }> {
+  playRound(nbRound): Observable<RoundInformation> {
 
     return new Observable(observer => {
 
       let attackInformation: AttackInformation | undefined;
 
-      if (this.battleFinished) {
-        return observer.unsubscribe;
-      }
+      if (this.battleFinished) return observer.unsubscribe;
 
       if (nbRound === 0) {
         const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
@@ -78,7 +74,6 @@ export class BattleService {
   }
 
   private makeAttack(opponent: Pokemon, secondOpponent: Pokemon): AttackInformation {
-    console.log('test', opponent);
     return AttackService.attack(opponent, secondOpponent);
   }
 }

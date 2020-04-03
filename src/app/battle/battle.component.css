@@ -11,6 +11,8 @@
   background-size: cover;
   margin-bottom: 20px;
   position: relative;
+  border: 10px solid #404040c4;
+  border-radius: 15px;
 }
 
 #logs {
@@ -66,7 +68,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #77777752;
+  background-color: #404040c4;
   height: 40px;
   padding: 10px;
 }

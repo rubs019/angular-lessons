@@ -1,19 +1,19 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appPkmnOpponentColor]'
+  selector: '[appPokemonOpponentColor]'
 })
 export class PkmnOpponentColorDirective implements OnInit {
   constructor(private el: ElementRef) {
   }
 
-  @Input('appPkmnOpponentColor') textColor: string;
+  @Input('appPokemonOpponentColor') pkmnOpponentColor: string;
 
   ngOnInit(): void {
     this.setColor();
   }
 
   private setColor() {
-    this.el.nativeElement.style.color = this.textColor;
+    this.el.nativeElement.style.color = this.pkmnOpponentColor;
   }
 }

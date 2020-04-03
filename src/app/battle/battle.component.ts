@@ -1,15 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Pokemon } from '../Models/Pokemon/Pokemon';
-import { Bulbizard, Pikachu } from '../Models/FakePokemons';
-import { Battle } from '../Models/Fight/Fight';
-import { MINIMUM_LIFE } from '../constants';
-import AttackService from '../Models/Attack/Attack.service';
 import { AttackInformation } from '../Models/Attack/Attack.definition';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../Services/apiService/api.service';
-import { interval, Observable, Subscriber, Subscription } from 'rxjs';
-import { BattleService } from '../Services/battleService/battle-service.service';
-import { mergeMap, take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { BattleService, RoundInformation } from '../Services/battleService/battle-service.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-battle',
@@ -43,8 +39,7 @@ export class BattleComponent implements OnInit, OnDestroy {
       }));
 
     this.subscriber = sub.subscribe(
-      (next: { nbRound: number, log: AttackInformation, winner?: Pokemon }) => {
-        console.log('fire', next);
+      (next: RoundInformation) => {
         this.battleLogs.push(next.log);
         if (!next.winner) return;
 
@@ -54,10 +49,10 @@ export class BattleComponent implements OnInit, OnDestroy {
     );
   }
 
-  async toggleFight(): Promise<void> {
+  toggleFight(): void {
     this.battleInProgress = !this.battleInProgress;
 
-    await this.fight();
+    this.fight();
   }
 
   private handleQueryParams(params): void {

@@ -32,12 +32,12 @@
     <p class="dateStartBattle">{{ startBattleDate | date:'long' }}</p>
     <div *ngFor="let log of battleLogs" class="logs-history">
       <p>
-        <span [appPkmnOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{ log.attackerName }}</span>
-        utilise {{ log.attackName }} sur <span [appPkmnOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
+        <span [appPokemonOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{ log.attackerName }}</span>
+        utilise {{ log.attackName }} sur <span [appPokemonOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
       </p>
       <p>
-        <span [appPkmnOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{log.attackerName}}</span> inflige {{log.damage | number }}
-        dégats <span [appPkmnOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
+        <span [appPokemonOpponentColor]="log.attackerName === opponent.name ? opponent.color : secondOpponent.color">{{log.attackerName}}</span> inflige {{log.damage | number }}
+        dégats <span [appPokemonOpponentColor]="log.defenderName === opponent.name ? opponent.color : secondOpponent.color">{{ log.defenderName}}</span>
       </p>
     </div>
   </div>
