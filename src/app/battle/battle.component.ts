@@ -62,7 +62,6 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   private handleQueryParams(params): void {
-    console.log('params', params);
 
     if (!this.pokemons?.[0]?.custom) {
       this.apiService.getPokemon(params.pok1)
