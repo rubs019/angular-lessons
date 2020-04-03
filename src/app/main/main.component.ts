@@ -67,7 +67,25 @@ export class MainComponent implements OnInit {
         ];
 
         this.pokemonToSelect.push(pokemonCreated);
+
+        this.resetVal();
       });
     }
+
+  resetVal(): void {
+    this.creationService.createPokemon.name = null;
+    this.creationService.createPokemon.level = null;
+    this.creationService.createPokemon.speed = null;
+    this.creationService.createPokemon.offStat = null;
+    this.creationService.createPokemon.defStat = null;
+    this.creationService.createPokemon.maxHealth = null;
+    this.creationService.createPokemon.maxHealth = null;
+    this.creationService.createPokemon.sprites = {
+      front_default: null,
+      back_default: null
+    }
+    this.creationService.createPokemon.custom = null;
+    this.creationService.createPokemon.attacks = null;
+  }
 
 }
