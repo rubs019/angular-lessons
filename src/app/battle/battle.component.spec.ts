@@ -4,6 +4,8 @@ import { BattleComponent } from './battle.component';
 import { PkmnOpponentColorDirective } from '../pkmn-opponent-color.directive';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LoggerPokemonComponent } from '../logger-pokemon/logger-pokemon.component';
+import { HealthPokemonComponent } from '../health-pokemon/health-pokemon.component';
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
@@ -12,7 +14,7 @@ describe('BattleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
-      declarations: [ BattleComponent, PkmnOpponentColorDirective ]
+      declarations: [ BattleComponent, PkmnOpponentColorDirective, LoggerPokemonComponent, HealthPokemonComponent ]
     })
     .compileComponents();
   }));

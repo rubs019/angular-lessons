@@ -1,0 +1,8 @@
+<div>
+  <span [appPokemonOpponentColor]="log?.attackerName === opponent?.name ? opponent?.color : secondOpponent?.color">{{ log?.attackerName }}</span>
+  utilise {{ log?.attackName }} sur <span [appPokemonOpponentColor]="log?.defenderName === opponent?.name ? opponent?.color : secondOpponent?.color">{{ log?.defenderName}}</span>
+</div>
+<div>
+  <span [appPokemonOpponentColor]="log?.attackerName === opponent?.name ? opponent?.color : secondOpponent?.color">{{log?.attackerName}}</span> inflige {{log?.damage | number }}
+  dégats <span [appPokemonOpponentColor]="log?.defenderName === opponent?.name ? opponent?.color : secondOpponent?.color">{{ log?.defenderName}}</span>
+</div>

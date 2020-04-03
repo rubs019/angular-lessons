@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { HealthPokemonComponent } from './health-pokemon/health-pokemon.component';
+import { LoggerPokemonComponent } from './logger-pokemon/logger-pokemon.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HealthPokemonComponent } from './health-pokemon/health-pokemon.componen
     BattleComponent,
     PkmnOpponentColorDirective,
     PokemonCreationComponent,
-    HealthPokemonComponent
+    HealthPokemonComponent,
+    LoggerPokemonComponent
   ],
   entryComponents: [
     PokemonCreationComponent,
