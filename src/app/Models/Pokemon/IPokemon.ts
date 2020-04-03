@@ -15,4 +15,5 @@ export interface IPokemon {
   specOffStat?: number;
   specDefStat?: number;
   sprites?: PokemonSpritesBeans;
+  custom: boolean;
 }

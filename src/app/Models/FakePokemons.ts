@@ -6,9 +6,8 @@ export const Pikachu: unknown = {
   speed: 90,
   offStat: 55,
   defStat: 40,
-  specOffStat: 75,
-  specDefStat: 50,
   maxHealth: 30,
+  custom: false,
   attacks: [
     {
       name: 'Charge',
@@ -43,6 +42,7 @@ export const Bulbizard: unknown = {
   specOffStat: 48,
   specDefStat: 48,
   maxHealth: 48,
+  custom: false,
   attacks: [
     {
       name: 'Charge',

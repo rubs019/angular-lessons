@@ -47,17 +47,18 @@ export class MainComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
         const pokemonCreated = new Pokemon();
-        console.log(pokemonCreated);
         pokemonCreated.name = this.creationService.createPokemon.name;
         pokemonCreated.level = this.creationService.createPokemon.level;
         pokemonCreated.speed = this.creationService.createPokemon.speed;
         pokemonCreated.offStat = this.creationService.createPokemon.offStat;
         pokemonCreated.defStat = this.creationService.createPokemon.defStat;
+        pokemonCreated.health = this.creationService.createPokemon.maxHealth;
         pokemonCreated.maxHealth = this.creationService.createPokemon.maxHealth;
         pokemonCreated.sprites = {
             front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png',
             back_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/127.png'
         }
+        pokemonCreated.custom = true;
         pokemonCreated.attacks = [
             {
                 name: 'Attaque foudre',

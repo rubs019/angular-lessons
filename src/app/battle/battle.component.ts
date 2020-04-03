@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Pokemon } from '../Models/Pokemon/Pokemon';
 import { AttackInformation } from '../Models/Attack/Attack.definition';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../Services/apiService/api.service';
 import { Subscription } from 'rxjs';
 import { BattleService, RoundInformation } from '../Services/battleService/battle-service.service';
@@ -23,8 +23,10 @@ export class BattleComponent implements OnInit, OnDestroy {
   winnerName = '';
   startBattleDate: Date;
   subscriber: Subscription;
+  pokemons: Pokemon[];
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private battleService: BattleService) {
+  constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private battleService: BattleService) {
+    this.pokemons = this.router.getCurrentNavigation().extras.state as Pokemon[];
   }
 
   async ngOnInit(): Promise<any> {
@@ -33,7 +35,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   fight(): void {
-    const sub = this.battleService.start(this.opponent, this.secondOpponent)
+    const sub = this.battleService.start(this.opponent as Pokemon, this.secondOpponent as Pokemon)
       .pipe(mergeMap(nbRound => {
         return this.battleService.playRound(nbRound);
       }));
@@ -41,7 +43,9 @@ export class BattleComponent implements OnInit, OnDestroy {
     this.subscriber = sub.subscribe(
       (next: RoundInformation) => {
         this.battleLogs.push(next.log);
-        if (!next.winner) return;
+        if (!next.winner) {
+          return;
+        }
 
         this.battleFinished = true;
         this.winnerName = next.winner?.name;
@@ -56,17 +60,31 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   private handleQueryParams(params): void {
-    this.apiService.getPokemon(params.pok1)
-      .subscribe(pokemon => {
-        this.opponent = pokemon;
-        this.opponent.color = 'blue';
-      });
+    console.log('params', params);
 
-    this.apiService.getPokemon(params.pok2)
-      .subscribe(pokemon => {
-        this.secondOpponent = pokemon;
-        this.secondOpponent.color = 'red';
-      });
+    if (!this.pokemons?.[0]?.custom) {
+      this.apiService.getPokemon(params.pok1)
+        .subscribe(pokemon => {
+          this.opponent = pokemon;
+          this.opponent.color = 'blue';
+        });
+    } else {
+      this.opponent = this.pokemons[0];
+      this.opponent.color = 'blue';
+    }
+
+    if (!this.pokemons?.[1]?.custom) {
+      this.apiService.getPokemon(params.pok2)
+        .subscribe(pokemon => {
+          this.secondOpponent = pokemon;
+          this.secondOpponent.color = 'red';
+        });
+    } else {
+      this.secondOpponent = this.pokemons[1];
+      this.secondOpponent.color = 'red';
+
+    }
+
   }
 
   ngOnDestroy() {
