@@ -35,6 +35,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   }
 
   fight(): void {
+    this.startBattleDate = new Date();
     const sub = this.battleService.start(this.opponent as Pokemon, this.secondOpponent as Pokemon)
       .pipe(mergeMap(nbRound => {
         return this.battleService.playRound(nbRound);

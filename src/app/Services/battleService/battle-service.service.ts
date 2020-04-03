@@ -42,6 +42,17 @@ export class BattleService {
 
         attackInformation = this.makeAttack(fasterPokemon, slowestPokemon);
 
+        if (slowestPokemon.health === 0) {
+          this.battleFinished = true;
+          this.winnerName = fasterPokemon.name;
+          observer.next({
+            nbRound,
+            log: attackInformation,
+            winner: fasterPokemon
+          });
+          return observer.unsubscribe();
+        }
+
         this.nextAttacker = slowestPokemon;
         this.nextDefender = fasterPokemon;
         return observer.next({
