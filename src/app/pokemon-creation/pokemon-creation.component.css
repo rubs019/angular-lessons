@@ -3,17 +3,22 @@
     font-size: 12px;
 }
 .md-button {
-    border: none;
 	background-color: yellow;
-	width: 20%;
-    height: 40px;
+	width: 60%;
+    height: 30px;
     font-size: medium;
     text-align: center;
 	border-width: 1px;;
     color: black;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 .input {
     align-items: center;
+}
+.button {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;  
 }
