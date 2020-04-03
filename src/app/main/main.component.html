@@ -8,7 +8,6 @@
     <button class="md-button" (click)="openDialog()">
       Créer un Pokémon
     </button>
-    <mat-checkbox>Check me!</mat-checkbox>
   </div>
   <div class="row">
     <div class="cardSelected">
@@ -23,7 +22,9 @@
     <div class="startBattle">
       <ng-template [ngIf]="pokemonSelected.length === 2">
         <a class="button" [routerLink]="['/battle']"
-          [queryParams]="{pok1: this.pokemonSelected[0].name, pok2: this.pokemonSelected[1].name}">
+          [queryParams]="{pok1: this.pokemonSelected[0].name, pok2: this.pokemonSelected[1].name}"
+           [state]="this.pokemonSelected"
+        >
           <span class="pokemonFont title">START BATTLE</span>
           <img src="../../assets/pokeball_battle.png" width="100px" alt="">
         </a>

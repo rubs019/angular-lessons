@@ -17,11 +17,12 @@ export class Pokemon {
   attacks?: Attack[];
   sprites?: PokemonSpritesBeans;
   color?: string;
+  custom: boolean;
 
   constructor(pokemon?: IPokemon) {
     this.id = pokemon?.id;
     this.name = pokemon?.name;
-    this.level = pokemon?.level;
+    this.level = pokemon?.level || 10;
     this.speed = pokemon?.speed;
     this.offStat = pokemon?.offStat;
     this.defStat = pokemon?.defStat;
@@ -30,6 +31,7 @@ export class Pokemon {
     this.basePower = pokemon?.basePower;
     this.attacks = pokemon?.attacks;
     this.sprites = pokemon?.sprites;
+    this.custom = pokemon?.custom;
   }
 
   public static BeansToPokemon(pokemonBeans: PokemonBeans): Pokemon {
@@ -55,6 +57,7 @@ export class Pokemon {
         maxHealth: hp,
         attacks,
         sprites: pokemonBeans.sprites,
+        custom: false
     });
 
 }
