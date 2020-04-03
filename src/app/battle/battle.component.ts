@@ -27,7 +27,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   pokemons: Pokemon[];
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private battleService: BattleService) {
-    this.pokemons = this.router.getCurrentNavigation().extras.state as Pokemon[];
+    this.pokemons = this.router.getCurrentNavigation().extras?.state as Pokemon[];
   }
 
   async ngOnInit(): Promise<any> {
