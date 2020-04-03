@@ -38,7 +38,7 @@ import { LoggerPokemonComponent } from './logger-pokemon/logger-pokemon.componen
     MatDialogModule
   ],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
   ],
   bootstrap: [AppComponent]
 })
