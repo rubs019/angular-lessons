@@ -54,7 +54,16 @@ export class MainComponent implements OnInit {
         pokemonCreated.offStat = this.creationService.createPokemon.offStat;
         pokemonCreated.defStat = this.creationService.createPokemon.defStat;
         pokemonCreated.maxHealth = this.creationService.createPokemon.maxHealth;
-        pokemonCreated.attacks = [];
+        pokemonCreated.sprites = {
+            front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png',
+            back_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/127.png'
+        }
+        pokemonCreated.attacks = [
+            {
+                name: 'Attaque foudre',
+                basePower: pokemonCreated.offStat
+            }
+        ];
 
         this.pokemonToSelect.push(pokemonCreated);
       });
