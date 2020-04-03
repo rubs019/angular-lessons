@@ -14,7 +14,7 @@
     <br>
     <br />
     <label>Speed : </label>
-    <input id="speed" class="form-control" #name="ngModel" required minlength="1"
+    <input id="speed" class="form-control" #speed="ngModel" required minlength="1"
         [(ngModel)]="creationService.createPokemon.speed" type="text" [ngModelOptions]="{standalone: true}" />
     <div *ngIf="speed.invalid && (speed.dirty || speed.touched)" class="alert alert-danger">
         <div *ngIf="speed.errors.required">
@@ -27,7 +27,7 @@
     <br>
     <br />
     <label>off stat : </label>
-    <input id="offStat" class="form-control" #name="ngModel" required minlength="1"
+    <input id="offStat" class="form-control" #offStat="ngModel" required minlength="1"
         [(ngModel)]="creationService.createPokemon.offStat" type="text" [ngModelOptions]="{standalone: true}" />
     <div *ngIf="offStat.invalid && (offStat.dirty || offStat.touched)" class="alert alert-danger">
         <div *ngIf="offStat.errors.required">
@@ -39,7 +39,7 @@
     </div><br>
     <br />
     <label>def stat : </label>
-    <input id="defstat" class="form-control" #name="ngModel" required minlength="1"
+    <input id="defstat" class="form-control" #defstat="ngModel" required minlength="1"
         [(ngModel)]="creationService.createPokemon.defStat" type="text" [ngModelOptions]="{standalone: true}" />
     <div *ngIf="defstat.invalid && (defstat.dirty || defstat.touched)" class="alert alert-danger">
         <div *ngIf="defstat.errors.required">
@@ -52,7 +52,7 @@
     <br>
     <br />
     <label>HP : </label>
-    <input id="hp" class="form-control" #name="ngModel" required minlength="1" [(ngModel)]="creationService.createPokemon.maxHealth" type="text" [ngModelOptions]="{standalone: true}" />
+    <input id="hp" class="form-control" #hp="ngModel" required minlength="1" [(ngModel)]="creationService.createPokemon.maxHealth" type="text" [ngModelOptions]="{standalone: true}" />
     <div *ngIf="hp.invalid && (hp.dirty || hp.touched)" class="alert alert-danger">
         <div *ngIf="hp.errors.required">
             hp stat est obligé!!
