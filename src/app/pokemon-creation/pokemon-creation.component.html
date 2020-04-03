@@ -1,20 +1,67 @@
 <h1>Création d'un Pokémon</h1>
 <form (submit)="createPokemon()" novalidate>
     <label>Nom : </label>
-    <input [(ngModel)]="creationService.createPokemon.name" type="text" [ngModelOptions]="{standalone: true}" /><br>
+    <input id="name" class="form-control" #name="ngModel" required minlength="4"
+        [(ngModel)]="creationService.createPokemon.name" type="text" [ngModelOptions]="{standalone: true}" />
+    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+            Nom est obligé!!
+        </div>
+        <div *ngIf="name.errors.minlength">
+            Le nom doit avoir 4 lettres
+        </div>
+    </div>
+    <br>
     <br />
     <label>Speed : </label>
-    <input [(ngModel)]="creationService.createPokemon.speed" type="text" [ngModelOptions]="{standalone: true}" /><br>
+    <input id="speed" class="form-control" #name="ngModel" required minlength="1"
+        [(ngModel)]="creationService.createPokemon.speed" type="text" [ngModelOptions]="{standalone: true}" />
+    <div *ngIf="speed.invalid && (speed.dirty || speed.touched)" class="alert alert-danger">
+        <div *ngIf="speed.errors.required">
+            Speed est obligé!!
+        </div>
+        <div *ngIf="speed.errors.minlength">
+            Speed doit avoir au minimum 1
+        </div>
+    </div>
+    <br>
     <br />
     <label>off stat : </label>
-    <input [(ngModel)]="creationService.createPokemon.offStat" type="text" [ngModelOptions]="{standalone: true}" /><br>
+    <input id="offStat" class="form-control" #name="ngModel" required minlength="1"
+        [(ngModel)]="creationService.createPokemon.offStat" type="text" [ngModelOptions]="{standalone: true}" />
+    <div *ngIf="offStat.invalid && (offStat.dirty || offStat.touched)" class="alert alert-danger">
+        <div *ngIf="offStat.errors.required">
+            off stat est obligé!!
+        </div>
+        <div *ngIf="offStat.errors.minlength">
+            off stat doit avoir au minimum 1
+        </div>
+    </div><br>
     <br />
     <label>def stat : </label>
-    <input [(ngModel)]="creationService.createPokemon.defStat" type="text" [ngModelOptions]="{standalone: true}" /><br>
+    <input id="defstat" class="form-control" #name="ngModel" required minlength="1"
+        [(ngModel)]="creationService.createPokemon.defStat" type="text" [ngModelOptions]="{standalone: true}" />
+    <div *ngIf="defstat.invalid && (defstat.dirty || defstat.touched)" class="alert alert-danger">
+        <div *ngIf="defstat.errors.required">
+            def stat est obligé!!
+        </div>
+        <div *ngIf="defstat.errors.minlength">
+            def stat doit avoir au minimum 1
+        </div>
+    </div>
+    <br>
     <br />
     <label>HP : </label>
-    <input [(ngModel)]="creationService.createPokemon.maxHealth" type="text"
-        [ngModelOptions]="{standalone: true}" /><br>
+    <input id="hp" class="form-control" #name="ngModel" required minlength="1" [(ngModel)]="creationService.createPokemon.maxHealth" type="text" [ngModelOptions]="{standalone: true}" />
+    <div *ngIf="hp.invalid && (hp.dirty || hp.touched)" class="alert alert-danger">
+        <div *ngIf="hp.errors.required">
+            hp stat est obligé!!
+        </div>
+        <div *ngIf="hp.errors.minlength">
+            hp stat doit avoir au minimum 1
+        </div>
+    </div>
+    <br>
     <br />
     <div class="button">
         <button class="md-button" type="submit">Créer</button>
