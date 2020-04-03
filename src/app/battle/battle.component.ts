@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Pokemon } from '../Models/Pokemon/Pokemon';
-import { AttackInformation } from '../Models/Attack/Attack.definition';
+import { AttackInformation } from '../Services/Attack/Attack.definition';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../Services/apiService/api.service';
 import { Subscription } from 'rxjs';
-import { BattleService, RoundInformation } from '../Services/battleService/battle-service.service';
+import { BattleService } from '../Services/battleService/battle-service.service';
 import { mergeMap } from 'rxjs/operators';
+import { RoundInformation } from '../Services/battleService/battle-service.definition';
 
 @Component({
   selector: 'app-battle',
@@ -36,7 +37,7 @@ export class BattleComponent implements OnInit, OnDestroy {
 
   fight(): void {
     this.startBattleDate = new Date();
-    const sub = this.battleService.start(this.opponent as Pokemon, this.secondOpponent as Pokemon)
+    const sub = this.battleService.start(this.opponent, this.secondOpponent)
       .pipe(mergeMap(nbRound => {
         return this.battleService.playRound(nbRound);
       }));

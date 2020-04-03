@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Battle } from '../../Models/Fight/Fight';
 import { Pokemon } from '../../Models/Pokemon/Pokemon';
-import AttackService from '../../Models/Attack/Attack.service';
 import { Observable, interval } from 'rxjs';
-import { AttackInformation } from '../../Models/Attack/Attack.definition';
+import { AttackInformation } from '../Attack/Attack.definition';
+import { AttackService } from '../Attack/attack.service';
+import { RoundInformation } from './battle-service.definition';
 
-export type RoundInformation = { nbRound: number, log: AttackInformation, winner?: Pokemon }
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,10 @@ export class BattleService {
   nextDefender?: Pokemon;
   battleFinished = false;
   winnerName?: string;
+  attackService: AttackService;
 
-  constructor() {
+  constructor(attackService: AttackService) {
+    this.attackService = attackService;
   }
 
   start(opponent: Pokemon, secondOpponent: Pokemon): Observable<number> {
@@ -29,15 +30,16 @@ export class BattleService {
   }
 
   playRound(nbRound): Observable<RoundInformation> {
-
     return new Observable(observer => {
 
       let attackInformation: AttackInformation | undefined;
 
-      if (this.battleFinished) return observer.unsubscribe;
+      if (this.battleFinished) {
+        return observer.unsubscribe;
+      }
 
       if (nbRound === 0) {
-        const fasterPokemon = Battle.getFasterPokemon(this.opponent, this.secondOpponent);
+        const fasterPokemon = this.getFasterPokemon(this.opponent, this.secondOpponent);
         const slowestPokemon = fasterPokemon === this.opponent ? this.secondOpponent : this.opponent;
 
         attackInformation = this.makeAttack(fasterPokemon, slowestPokemon);
@@ -85,6 +87,18 @@ export class BattleService {
   }
 
   private makeAttack(opponent: Pokemon, secondOpponent: Pokemon): AttackInformation {
-    return AttackService.attack(opponent, secondOpponent);
+    return this.attackService.attack(opponent, secondOpponent);
+  }
+
+  getFasterPokemon(pokemon1: Pokemon, pokemon2: Pokemon): Pokemon {
+    if (pokemon1.speed === pokemon2.speed) {
+      return this.randomInt(2) === 0 ? pokemon1 : pokemon2;
+    }
+
+    return pokemon1.speed > pokemon2.speed ? pokemon1 : pokemon2;
+  }
+
+  private randomInt(numberMax: number): number {
+    return Math.floor(Math.random() * Math.floor(numberMax));
   }
 }

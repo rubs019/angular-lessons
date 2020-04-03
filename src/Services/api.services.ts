@@ -1,9 +1,9 @@
 import { Observable, throwError } from 'rxjs';
 import { Pokemon } from 'src/app/Models/Pokemon/Pokemon';
-import { PokemonBeans } from 'src/app/Models/Pokemon/pokemonBeans';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
+import { PokemonDefinition } from '../app/Models/Pokemon/Pokemon.definition';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export default class PokeApiService {
 
   public getPokemon(key: string | number): Observable<Pokemon> {
 
-    return this.http.get<PokemonBeans>(`${this.APIUrl}/pokemon/${key}/`)
+    return this.http.get<PokemonDefinition>(`${this.APIUrl}/pokemon/${key}/`)
       .pipe(
         catchError(this.handleError),
         map(pokemon => Pokemon.BeansToPokemon(pokemon))

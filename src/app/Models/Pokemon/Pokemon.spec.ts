@@ -1,5 +1,5 @@
 import { Pokemon } from './Pokemon';
-import { Attack } from '../Attack/Attack.definition';
+import { Attack } from '../../Services/Attack/Attack.definition';
 
 describe('Pokemon logic model', () => {
   let pikachu: Pokemon;
@@ -18,6 +18,7 @@ describe('Pokemon logic model', () => {
       offStat: 55,
       defStat: 40,
       maxHealth: 30,
+      custom: false
     });
     MathRandom = Math.random;
     Math.random = () => 0.25;

@@ -1,6 +1,6 @@
-import { Attack } from './Attack/Attack.definition';
+import { Pokemon } from './Pokemon/Pokemon';
 
-export const Pikachu: unknown = {
+export const Pikachu: Pokemon = new Pokemon({
   name: 'Pikachu',
   level: 70,
   speed: 90,
@@ -31,16 +31,14 @@ export const Pikachu: unknown = {
     back_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png',
     front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'
   }
-};
+});
 
-export const Bulbizard: unknown = {
+export const Bulbizard: Pokemon = new Pokemon({
   name: 'Bulbizard',
   level: 1,
   speed: 48,
   offStat: 48,
   defStat: 48,
-  specOffStat: 48,
-  specDefStat: 48,
   maxHealth: 48,
   custom: false,
   attacks: [
@@ -62,4 +60,4 @@ export const Bulbizard: unknown = {
     back_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png'
   },
   basePower: 108
-};
+});

@@ -3,14 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, forkJoin } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Pokemon } from 'src/app/Models/Pokemon/Pokemon';
-import { PokemonBeans } from 'src/app/Models/Pokemon/pokemonBeans';
+import { PokemonDefinition } from '../../Models/Pokemon/Pokemon.definition';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  public APIUrl = 'https://pokeapi.co/api/v2';
-  public NbrPokemon = 61;
+  public API_URL = 'https://pokeapi.co/api/v2';
+  public NB_MAX_POKEMON = 61;
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +26,7 @@ export class ApiService {
 
   public getPokemon(key: string | number): Observable<Pokemon> {
 
-    return this.http.get<PokemonBeans>(`${this.APIUrl}/pokemon/${key}`)
+    return this.http.get<PokemonDefinition>(`${this.API_URL}/pokemon/${key}`)
       .pipe(
         catchError(this.handleError),
         map(pokemon => Pokemon.BeansToPokemon(pokemon))
@@ -36,7 +36,7 @@ export class ApiService {
   public getPokemons(): Observable<Pokemon[]> {
     const requests: Observable<Pokemon>[] = [];
 
-    for ( let i = 1 ; i < this.NbrPokemon ; i++ ) {
+    for (let i = 1 ; i < this.NB_MAX_POKEMON ; i++ ) {
       requests.push(this.getPokemon(i));
     }
     return forkJoin(requests);

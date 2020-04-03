@@ -1,6 +1,5 @@
-import { Attack } from '../Attack/Attack.definition';
-import { IPokemon } from './IPokemon';
-import { PokemonBeans, PokemonSpritesBeans } from './pokemonBeans';
+import { Attack } from '../../Services/Attack/Attack.definition';
+import { IPokemon, PokemonDefinition, PokemonSpritesBeans } from './Pokemon.definition';
 
 
 export class Pokemon {
@@ -31,10 +30,10 @@ export class Pokemon {
     this.basePower = pokemon?.basePower;
     this.attacks = pokemon?.attacks;
     this.sprites = pokemon?.sprites;
-    this.custom = pokemon?.custom;
+    this.custom = pokemon?.custom || false;
   }
 
-  public static BeansToPokemon(pokemonBeans: PokemonBeans): Pokemon {
+  public static BeansToPokemon(pokemonBeans: PokemonDefinition): Pokemon {
     const attacks = pokemonBeans.moves
         .slice(0, 10)
         .map(m => ({

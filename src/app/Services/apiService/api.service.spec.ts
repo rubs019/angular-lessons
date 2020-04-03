@@ -3,12 +3,11 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { ApiService } from './api.service';
 import { Pokemon } from '../../Models/Pokemon/Pokemon';
-import { PokemonBeans } from '../../Models/Pokemon/PokemonBeans';
 
 describe('ApiService', () => {
   let service: ApiService;
   let httpMock: HttpTestingController;
-  const pokemonBeans = {
+  const pokemonFromAPI = {
     name: 'ditto',
       moves: [
         {
@@ -75,7 +74,7 @@ describe('ApiService', () => {
       expect(pokemon.name).toBe('ditto');
     });
 
-    httpMock.expectOne(`${service.APIUrl}/pokemon/ditto`).flush(pokemonBeans);
+    httpMock.expectOne(`${service.API_URL}/pokemon/ditto`).flush(pokemonFromAPI);
 
     httpMock.verify();
   }));
